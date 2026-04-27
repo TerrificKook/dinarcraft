@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /privacy.html
+
+# Яндекс
+User-agent: Yandex
+Allow: /
+Disallow: /privacy.html
+Host: dinarhandmade.ru
+Sitemap: https://dinarhandmade.ru/sitemap.xml
