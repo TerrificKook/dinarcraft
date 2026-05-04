@@ -6,5 +6,5 @@ Disallow: /privacy.html
 User-agent: Yandex
 Allow: /
 Disallow: /privacy.html
-Host: dinarhandmade.ru
-Sitemap: https://dinarhandmade.ru/sitemap.xml
+Host: dinarcraft.ru
+Sitemap: https://dinarcraft.ru/sitemap.xml
