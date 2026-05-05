@@ -112,43 +112,18 @@
     .brand-link {
       display: inline-flex;
       align-items: center;
-      gap: 14px;
       min-width: 0;
       color: var(--blue);
     }
-    .logo-window {
-      width: 150px;
-      height: 58px;
-      flex: 0 0 150px;
-      overflow: hidden;
-      border: 1px solid rgba(38, 52, 75, .1);
-      background: #fff;
-    }
-    .logo-window img {
-      width: 128px;
-      height: 128px;
-      max-width: none;
-      object-fit: contain;
-      transform: translate(10px, -36px);
-    }
-    .brand-caption {
-      display: grid;
-      gap: 2px;
-      min-width: 130px;
-      line-height: 1.1;
-    }
-    .brand-caption strong {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 1.26rem;
-      font-weight: 600;
-      letter-spacing: .06em;
-    }
-    .brand-caption span {
-      color: rgba(38, 52, 75, .66);
-      font-size: .68rem;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
+    .brand-logo {
+      display: block;
+      width: 160px;
+      height: 74px;
+      background-image: url("logo.png");
+      background-repeat: no-repeat;
+      background-size: 170px 170px;
+      background-position: center -49px;
+      mix-blend-mode: multiply;
     }
     .nav-links { display: flex; gap: clamp(20px, 3vw, 42px); margin: 0; padding: 0; list-style: none; }
     .nav-links a {
@@ -186,43 +161,21 @@
         radial-gradient(ellipse at 20% 22%, rgba(139, 94, 60, .78), rgba(42, 27, 18, 0) 56%),
         linear-gradient(135deg, rgba(38, 52, 75, .32), rgba(42, 27, 18, 0) 46%);
     }
-    .hero-left > * { position: relative; }
-    .hero-brand {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      margin-bottom: 34px;
-    }
-    .hero-logo {
-      width: 270px;
-      height: 166px;
-      overflow: hidden;
-      flex: 0 0 auto;
-      background: #fff;
-      border: 1px solid rgba(253, 250, 245, .24);
-      box-shadow: 0 22px 60px rgba(0, 0, 0, .16);
-    }
-    .hero-logo img {
-      width: 250px;
-      height: 250px;
-      max-width: none;
-      object-fit: contain;
-      transform: translate(10px, -60px);
-    }
-    .hero-brand-text {
-      max-width: 280px;
-      color: rgba(253, 250, 245, .82);
-      font-size: .92rem;
-      line-height: 1.55;
-    }
-    .hero-brand-text strong {
+    .hero-left > * { position: relative; z-index: 1; }
+    .hero-mark {
       display: block;
-      margin-bottom: 6px;
-      color: var(--tan);
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .18em;
-      text-transform: uppercase;
+      position: absolute;
+      z-index: 0;
+      top: clamp(52px, 8vw, 96px);
+      right: clamp(-180px, -8vw, -62px);
+      width: min(560px, 48vw);
+      max-width: none;
+      opacity: .075;
+      aspect-ratio: 1;
+      background: url("logo.png") center center / contain no-repeat;
+      filter: brightness(0) invert(1);
+      mix-blend-mode: screen;
+      pointer-events: none;
     }
     .eyebrow {
       display: flex;
@@ -361,8 +314,15 @@
 
     footer { padding: 34px clamp(22px, 6vw, 72px); background: var(--ink); color: rgba(253, 250, 245, .64); }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .footer-logo { width: 140px; height: 54px; overflow: hidden; background: #fff; opacity: .72; }
-    .footer-logo img { width: 120px; height: 120px; max-width: none; object-fit: contain; transform: translate(10px, -34px); }
+    .footer-logo-mark {
+      display: block;
+      width: 128px;
+      height: 64px;
+      background: url("logo.png") center -37px / 150px 150px no-repeat;
+      filter: brightness(0) invert(1);
+      mix-blend-mode: screen;
+      opacity: .62;
+    }
 
     @media (max-width: 1100px) {
       .hero, .grid-2 { grid-template-columns: 1fr; }
@@ -374,13 +334,9 @@
     @media (max-width: 820px) {
       .nav { min-height: 72px; }
       .nav-links { display: none; }
-      .brand-caption { display: none; }
-      .logo-window { width: 138px; height: 52px; flex-basis: 138px; }
-      .logo-window img { width: 118px; height: 118px; transform: translate(10px, -33px); }
+      .brand-logo { width: 132px; height: 62px; background-size: 146px 146px; background-position: center -42px; }
       .hero-left, .hero-right { padding: 52px 22px; }
-      .hero-brand { align-items: flex-start; flex-direction: column; gap: 16px; margin-bottom: 28px; }
-      .hero-logo { width: 226px; height: 138px; }
-      .hero-logo img { width: 210px; height: 210px; transform: translate(8px, -50px); }
+      .hero-mark { top: 80px; right: -132px; width: 360px; opacity: .055; }
       .hero h1 { font-size: clamp(3.2rem, 16vw, 4.8rem); }
       .stats, .feature-grid, .grid-3 { grid-template-columns: 1fr; }
       .catalog-head { display: block; }
@@ -393,8 +349,7 @@
 <body>
   <nav class="nav" aria-label="Основная навигация">
     <a class="brand-link" href="#top" aria-label="DINAR handmade">
-      <span class="logo-window" aria-hidden="true"><img src="logo.png" alt="" /></span>
-      <span class="brand-caption"><strong>DINAR</strong><span>кожа и стропа оптом</span></span>
+      <span class="brand-logo" aria-hidden="true"></span>
     </a>
     <ul class="nav-links">
       <li><a href="#about">О нас</a></li>
@@ -407,10 +362,7 @@
 
   <header class="hero" id="top">
     <div class="hero-left">
-      <div class="hero-brand">
-        <div class="hero-logo"><img src="logo.png" alt="DINAR handmade" /></div>
-        <p class="hero-brand-text"><strong>Фирменный знак мастерской</strong>Логотип используем как основу для собственных изделий и можем адаптировать брендирование под логотип заказчика.</p>
-      </div>
+      <span class="hero-mark" aria-hidden="true"></span>
       <div class="eyebrow">Кожаные изделия и стропа оптом</div>
       <h1>Мастерская <em>Динара</em></h1>
       <p class="hero-text">Небольшая мастерская полного цикла. Производим изделия из натуральной кожи и стропы на собственном оборудовании. Работаем с оптовыми заказами, юридическими лицами и ИП.</p>
@@ -525,7 +477,7 @@
 
   <footer>
     <div class="footer-inner">
-      <span class="footer-logo" aria-hidden="true"><img src="logo.png" alt="" /></span>
+      <span class="footer-logo-mark" aria-hidden="true"></span>
       <div>Натуральная кожа · Российское производство · Опт от 30 000 ₽</div>
     </div>
   </footer>
