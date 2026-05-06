@@ -1,8 +1,4 @@
 User-agent: *
 Allow: /
 
-# Яндекс
-User-agent: Yandex
-Allow: /
-Host: dinarcraft.ru
 Sitemap: https://dinarcraft.ru/sitemap.xml
