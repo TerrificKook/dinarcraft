@@ -8,7 +8,8 @@
     ['Услуги', '/services/'],
     ['Сотрудничество', '/cooperation/'],
     ['Статьи', '/articles/'],
-    ['Контакты', '/#contact']
+    ['Контакты', '/#contact'],
+    ['+7 (995) 881-50-95', 'tel:+79958815095']
   ];
   var panelId = 'mobile-nav-panel';
   var button = document.createElement('button');
