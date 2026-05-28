@@ -9,7 +9,8 @@
     ['Сотрудничество', '/cooperation/'],
     ['Статьи', '/articles/'],
     ['Контакты', '/#contact'],
-    ['+7 (995) 881-50-95', 'tel:+79958815095']
+    ['+7 (995) 881-50-95', 'tel:+79958815095'],
+    ['MAX', 'https://max.ru/u/f9LHodD0cOKdKxpZWRTf6opqWFE4_FBbFln83YGEvx6yfmukrq7u5bdn0Wg']
   ];
   var panelId = 'mobile-nav-panel';
   var button = document.createElement('button');
@@ -26,7 +27,8 @@
   panel.id = panelId;
   panel.hidden = true;
   panel.innerHTML = '<ul>' + links.map(function(item){
-    return '<li><a href="' + item[1] + '">' + item[0] + '</a></li>';
+    var external = item[1].indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '';
+    return '<li><a href="' + item[1] + '"' + external + '>' + item[0] + '</a></li>';
   }).join('') + '</ul>';
 
   function closeMenu(){
