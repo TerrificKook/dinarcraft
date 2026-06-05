@@ -230,6 +230,8 @@ body > section.contact-section{padding:clamp(42px,5vw,64px) clamp(22px,6vw,76px)
 .footer-brand{display:grid;gap:10px;max-width:340px}
 .footer-brand strong{color:var(--paper);font-family:Georgia,"Times New Roman",serif;font-size:1.32rem;font-weight:400}
 .footer-brand span,.footer-legal{color:rgba(253,250,245,.58);font-size:.9rem;line-height:1.5}
+.footer-requisites{display:grid;gap:2px;color:rgba(253,250,245,.66);font-size:.82rem;line-height:1.45}
+.footer-requisites span{color:inherit;font-size:inherit;line-height:inherit;overflow-wrap:anywhere}
 .footer-col{display:grid;gap:8px}
 .footer-col span{color:rgba(253,250,245,.48);font-size:.74rem;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
 .footer-col a{color:rgba(253,250,245,.86);text-decoration:none}
