@@ -17,11 +17,18 @@
   var panelId = 'mobile-nav-panel';
   var button = document.createElement('button');
   var panel = document.createElement('div');
+  var openLabel = '\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u043c\u0435\u043d\u044e';
+  var closeLabel = '\u0417\u0430\u043a\u0440\u044b\u0442\u044c \u043c\u0435\u043d\u044e';
+  var menuTimer;
+  var nextFrame = window.requestAnimationFrame || function(callback){
+    return window.setTimeout(callback, 0);
+  };
 
   button.className = 'nav-toggle';
   button.type = 'button';
   button.setAttribute('aria-label', 'Открыть меню');
   button.setAttribute('aria-expanded', 'false');
+  button.setAttribute('aria-label', openLabel);
   button.setAttribute('aria-controls', panelId);
   button.innerHTML = '<span></span><span></span><span></span>';
 
@@ -33,17 +40,37 @@
     return '<li><a href="' + item[1] + '"' + external + '>' + item[0] + '</a></li>';
   }).join('') + '</ul>';
 
+  function getMenuDelay(){
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 0;
+    return 220;
+  }
+
+  function openMenu(){
+    window.clearTimeout(menuTimer);
+    panel.hidden = false;
+    button.setAttribute('aria-expanded', 'true');
+    button.setAttribute('aria-label', closeLabel);
+    nextFrame(function(){
+      panel.classList.add('is-open');
+    });
+  }
+
   function closeMenu(){
-    panel.hidden = true;
+    window.clearTimeout(menuTimer);
+    panel.classList.remove('is-open');
     button.setAttribute('aria-expanded', 'false');
-    button.setAttribute('aria-label', 'Открыть меню');
+    button.setAttribute('aria-label', openLabel);
+    menuTimer = window.setTimeout(function(){
+      if (!panel.classList.contains('is-open')) panel.hidden = true;
+    }, getMenuDelay());
   }
 
   function toggleMenu(){
-    var isOpen = !panel.hidden;
-    panel.hidden = isOpen;
-    button.setAttribute('aria-expanded', String(!isOpen));
-    button.setAttribute('aria-label', isOpen ? 'Открыть меню' : 'Закрыть меню');
+    if (panel.hidden || !panel.classList.contains('is-open')) {
+      openMenu();
+      return;
+    }
+    closeMenu();
   }
 
   button.addEventListener('click', function(event){
@@ -62,6 +89,58 @@
 
   nav.appendChild(button);
   nav.appendChild(panel);
+})();
+
+(function(){
+  var counterId = 109097580;
+  var goalName = 'contact_click';
+
+  function isContactHost(hostname){
+    var host = (hostname || '').toLowerCase().replace(/^www\./, '');
+    return host === 't.me' ||
+      host.slice(-5) === '.t.me' ||
+      host === 'max.ru' ||
+      host.slice(-7) === '.max.ru';
+  }
+
+  function isDirectContactLink(link){
+    var href = (link.getAttribute('href') || '').trim().toLowerCase();
+    if (href.indexOf('tel:') === 0 || href.indexOf('mailto:') === 0) return true;
+
+    var url = document.createElement('a');
+    url.href = href;
+    return isContactHost(url.hostname);
+  }
+
+  function isContactSectionCta(link){
+    var href = (link.getAttribute('href') || '').trim();
+    if (href.indexOf('#contact') === -1) return false;
+
+    var url = document.createElement('a');
+    url.href = href;
+    if (url.hash !== '#contacts' && url.hash !== '#contact') return false;
+
+    return link.classList.contains('btn') ||
+      link.classList.contains('card-link') ||
+      !!link.closest('.contact-actions, .order-box');
+  }
+
+  function reachContactGoal(){
+    if (typeof ym === 'function') {
+      ym(counterId, 'reachGoal', goalName);
+    }
+  }
+
+  document.addEventListener('click', function(event){
+    if (!event.target || !event.target.closest) return;
+
+    var link = event.target.closest('a[href]');
+    if (!link) return;
+
+    if (isDirectContactLink(link) || isContactSectionCta(link)) {
+      reachContactGoal();
+    }
+  });
 })();
 
 (function(){
