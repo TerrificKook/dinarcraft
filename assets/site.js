@@ -17,8 +17,8 @@
   var panelId = 'mobile-nav-panel';
   var button = document.createElement('button');
   var panel = document.createElement('div');
-  var openLabel = '\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u043c\u0435\u043d\u044e';
-  var closeLabel = '\u0417\u0430\u043a\u0440\u044b\u0442\u044c \u043c\u0435\u043d\u044e';
+  var openLabel = 'Открыть меню';
+  var closeLabel = 'Закрыть меню';
   var menuTimer;
   var nextFrame = window.requestAnimationFrame || function(callback){
     return window.setTimeout(callback, 0);
@@ -26,7 +26,6 @@
 
   button.className = 'nav-toggle';
   button.type = 'button';
-  button.setAttribute('aria-label', 'Открыть меню');
   button.setAttribute('aria-expanded', 'false');
   button.setAttribute('aria-label', openLabel);
   button.setAttribute('aria-controls', panelId);
@@ -93,7 +92,12 @@
 
 (function(){
   var counterId = 109097580;
-  var goalName = 'contact_click';
+  var directContactGoals = {
+    telegram: 'telegram_click',
+    max: 'max_click',
+    phone: 'phone_click',
+    email: 'email_click'
+  };
 
   function isContactHost(hostname){
     var host = (hostname || '').toLowerCase().replace(/^www\./, '');
@@ -103,13 +107,19 @@
       host.slice(-7) === '.max.ru';
   }
 
-  function isDirectContactLink(link){
+  function getDirectContactType(link){
     var href = (link.getAttribute('href') || '').trim().toLowerCase();
-    if (href.indexOf('tel:') === 0 || href.indexOf('mailto:') === 0) return true;
+    if (href.indexOf('tel:') === 0) return 'phone';
+    if (href.indexOf('mailto:') === 0) return 'email';
 
     var url = document.createElement('a');
     url.href = href;
-    return isContactHost(url.hostname);
+    if (!isContactHost(url.hostname)) return '';
+
+    var host = url.hostname.toLowerCase().replace(/^www\./, '');
+    if (host === 't.me' || host.slice(-5) === '.t.me') return 'telegram';
+    if (host === 'max.ru' || host.slice(-7) === '.max.ru') return 'max';
+    return '';
   }
 
   function isContactSectionCta(link){
@@ -125,9 +135,18 @@
       !!link.closest('.contact-actions, .order-box');
   }
 
-  function reachContactGoal(){
-    if (typeof ym === 'function') {
-      ym(counterId, 'reachGoal', goalName);
+  function normalizeLinkText(link){
+    var text = typeof link.innerText === 'string' ? link.innerText : link.textContent;
+    return (text || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function reachGoal(goalName, link, contactType){
+    if (typeof window.ym === 'function') {
+      window.ym(counterId, 'reachGoal', goalName, {
+        pathname: location.pathname,
+        link_text: normalizeLinkText(link),
+        contact_type: contactType
+      });
     }
   }
 
@@ -137,19 +156,31 @@
     var link = event.target.closest('a[href]');
     if (!link) return;
 
-    if (isDirectContactLink(link) || isContactSectionCta(link)) {
-      reachContactGoal();
+    var contactType = getDirectContactType(link);
+    if (contactType) {
+      reachGoal('contact_click', link, contactType);
+      reachGoal(directContactGoals[contactType], link, contactType);
+      return;
+    }
+
+    if (isContactSectionCta(link)) {
+      reachGoal('contact_section_open', link, 'contact_section');
     }
   });
 })();
 
 (function(){
   var counterId = 109097580;
+  var inlineInitPattern = /(?:^|[^\w$.])(?:window\.)?ym\s*\(\s*109097580\s*,\s*['"]init['"]/;
   var scripts = Array.prototype.slice.call(document.scripts);
   var hasInlineInit = scripts.some(function(script){
-    return !script.src && script.textContent.indexOf('ym(109097580') !== -1;
+    return !script.src && inlineInitPattern.test(script.textContent);
   });
-  if (hasInlineInit) return;
+  var hasQueuedInit = !!(window.ym && window.ym.a &&
+    Array.prototype.some.call(window.ym.a, function(args){
+      return args && args[0] === counterId && args[1] === 'init';
+    }));
+  if (hasInlineInit || hasQueuedInit) return;
 
   window.ym = window.ym || function(){
     (window.ym.a = window.ym.a || []).push(arguments);
@@ -181,7 +212,7 @@
 
   var banner = document.createElement('div');
   banner.className = 'cookie-banner';
-  banner.innerHTML = '<p>Мы используем cookies и Яндекс Метрику, чтобы анализировать посещаемость сайта и улучшать его работу. Продолжая пользоваться сайтом, вы соглашаетесь с обработкой данных. Подробнее - в <a href="/privacy/">Политике обработки данных</a>.</p><button type="button" class="btn">Понятно</button>';
+  banner.innerHTML = '<p>Мы используем cookies и Яндекс Метрику, чтобы анализировать посещаемость сайта и улучшать его работу. Продолжая пользоваться сайтом, вы соглашаетесь с обработкой данных. Подробнее — в <a href="/privacy/">Политике обработки данных</a>.</p><button type="button" class="btn">Понятно</button>';
 
   var close = function(){
     try {

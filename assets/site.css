@@ -136,6 +136,7 @@ section{padding:clamp(50px,6.2vw,78px) clamp(22px,6vw,76px)}
 .article-card h2{margin-bottom:10px;color:var(--leather);font-size:1.55rem}
 .article-card p{color:rgba(74,46,26,.78)}
 .article-body{max-width:900px;margin:0 auto}
+.article-meta{display:grid;gap:4px;margin-bottom:28px;padding:14px 16px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface-alt);font-size:.9rem}
 .article-body h2{margin:34px 0 12px;color:var(--leather);font-size:2rem}
 .article-body p,.article-body li{color:rgba(74,46,26,.84)}
 .article-body a{color:var(--sienna);font-weight:700;text-decoration:underline;text-underline-offset:3px}
