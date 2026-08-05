@@ -966,7 +966,7 @@ body > section.contact-section{padding:clamp(42px,5vw,64px) clamp(22px,6vw,76px)
   transition:transform 520ms cubic-bezier(.2,.8,.2,1);
 }
 .hm-direction-card:nth-child(1) img{object-position:50% 48%}
-.hm-direction-card:nth-child(2) img{object-position:50% 0;transform:scale(1.12);transform-origin:top center}
+.hm-direction-card:nth-child(2) img{object-position:50% 54%;transform:scale(1.27);transform-origin:center 68%}
 .hm-direction-card:nth-child(3) img{object-position:50% 0;transform:scale(1.1);transform-origin:top center}
 .hm-direction-card:nth-child(4) img{object-position:50% 44%}
 .hm-direction-card>div{
@@ -987,7 +987,7 @@ body > section.contact-section{padding:clamp(42px,5vw,64px) clamp(22px,6vw,76px)
 .hm-direction-card strong{display:inline-flex;margin-top:20px;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
 .hm-direction-card:hover{transform:translateY(-3px)}
 .hm-direction-card:hover img{transform:scale(1.025)}
-.hm-direction-card:nth-child(2):hover img{transform:scale(1.145)}
+.hm-direction-card:nth-child(2):hover img{transform:scale(1.295)}
 .hm-direction-card:nth-child(3):hover img{transform:scale(1.125)}
 .home-modern main>.hm-about{
   display:grid;
@@ -1165,6 +1165,12 @@ body > section.contact-section{padding:clamp(42px,5vw,64px) clamp(22px,6vw,76px)
   .hm-direction-grid{grid-template-columns:1fr;gap:14px}
   .hm-direction-card,
   .hm-direction-card.hm-direction-wide{grid-column:1;min-height:460px;border-radius:22px}
+  .hm-direction-card:nth-child(2) img,
+  .hm-direction-card:nth-child(2):hover img{
+    object-position:50% 58%;
+    transform:scale(1.5);
+    transform-origin:center 78%;
+  }
   .hm-direction-card>div{padding:24px}
   .hm-direction-card h3{font-size:2.35rem}
   .home-modern main>.hm-about,
