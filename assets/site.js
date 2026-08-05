@@ -203,6 +203,25 @@
 })();
 
 (function(){
+  var measurementId = 'G-1JNWHT0M1N';
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function(){
+    window.dataLayer.push(arguments);
+  };
+
+  if (!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
+    var tag = document.createElement('script');
+    tag.async = true;
+    tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+    document.head.appendChild(tag);
+  }
+
+  window.gtag('js', new Date());
+  window.gtag('config', measurementId);
+})();
+
+(function(){
   var key = 'dinarcraft_cookie_accepted_v1';
   try {
     if (localStorage.getItem(key) === '1') return;
@@ -212,7 +231,7 @@
 
   var banner = document.createElement('div');
   banner.className = 'cookie-banner';
-  banner.innerHTML = '<p>Мы используем cookies и Яндекс Метрику, чтобы анализировать посещаемость сайта и улучшать его работу. Продолжая пользоваться сайтом, вы соглашаетесь с обработкой данных. Подробнее — в <a href="/privacy/">Политике обработки данных</a>.</p><button type="button" class="btn">Понятно</button>';
+  banner.innerHTML = '<p>Мы используем cookies, Яндекс Метрику и Google Analytics, чтобы анализировать посещаемость сайта и улучшать его работу. Продолжая пользоваться сайтом, вы соглашаетесь с обработкой данных. Подробнее — в <a href="/privacy/">Политике обработки данных</a>.</p><button type="button" class="btn">Понятно</button>';
 
   var close = function(){
     try {
