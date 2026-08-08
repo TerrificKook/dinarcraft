@@ -2,7 +2,7 @@
 
 Источник данных: `catalog/index.html`, товарные страницы `catalog/[product-folder]/index.html`, папки `assets/images/products/`.
 
-В каталоге найден 21 товар. У всех найденных товаров есть:
+В каталоге найдено 22 товара. У всех найденных товаров есть:
 
 - карточка в `catalog/index.html`;
 - отдельная товарная страница;
@@ -24,6 +24,7 @@
 | 061 | `/catalog/061-ezhednevnik-a5-volna/` | Ежедневник А5 ВОЛНА | Кожаные ежедневники и блокноты | `assets/images/products/061-ezhednevnik-a5-volna` | Да | Да | Ежедневник А5 "ВОЛНА". |
 | 039 | `/catalog/039-ochechnik/` | Очечник кожаный | Кожаные аксессуары | `assets/images/products/039-ochechnik` | Да | Да | Базовый кожаный очечник. |
 | 047 | `/catalog/047-kapkholder/` | Капхолдер | Кожаные аксессуары | `assets/images/products/047-kapkholder` | Да | Да | Капхолдер для кофеен и мероприятий. |
+| 069 | `/catalog/069-kapkholder-oranzhevyy/` | Капхолдер оранжевый | Кожаные аксессуары | `assets/images/products/069-kapkholder-oranzhevyy` | Да | Да | Оранжевый капхолдер с регулируемым ремнём. |
 | 048 | `/catalog/048-ochechnik-bezhevyy/` | Очечник бежевый | Кожаные аксессуары | `assets/images/products/048-ochechnik-bezhevyy` | Да | Да | Бежевый кожаный очечник. |
 | 049 | `/catalog/049-chehol-karty-taro/` | Чехол и карты таро | Кожаные аксессуары | `assets/images/products/049-chehol-karty-taro` | Да | Да | Кожаный чехол для карт таро. |
 | 053 | `/catalog/053-ochechnik-oranzh/` | Очечник оранж | Кожаные аксессуары | `assets/images/products/053-ochechnik-oranzh` | Да | Да | Оранжевый кожаный очечник. |
@@ -37,4 +38,4 @@
 
 - В `assets/images/products/` нет лишних папок товаров без товарной страницы.
 - По названиям есть близкие позиции: `032` и `046` оба называются "Багажный ремень с ручкой 2 метра", но это разные папки и разные артикулы.
-- В `sitemap.xml` перечислены все 21 товарные страницы.
+- В `sitemap.xml` перечислены все 22 товарные страницы.

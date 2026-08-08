@@ -7,15 +7,15 @@ dinarcraft/
   index.html
   catalog/
     index.html
-    [21 папка товарных страниц]
-    [6 старых SEO-страниц]
+    [22 папки товарных страниц]
+    [9 групповых SEO-страниц]
   services/
     index.html
   cooperation/
     index.html
   articles/
     index.html
-    [5 папок статей]
+    [10 папок статей]
   privacy/
     index.html
   assets/
@@ -25,7 +25,7 @@ dinarcraft/
     catalog.js
     images/
       hero/
-      products/  (21 папка товаров, подробно не расписывать)
+      products/  (22 папки товаров, подробно не расписывать)
   sitemap.xml
   robots.txt
   CNAME
@@ -35,6 +35,7 @@ dinarcraft/
   apple-touch-icon.png
   yandex_8c6bf607b65193e7.html
   yandex_b28c22483554a6c.html
+  google6ccba9547dfbd366.html
   privacy.html
 ```
 
@@ -73,6 +74,7 @@ dinarcraft/
 - `/catalog/059-ruchki-dlya-sumki-kozhanye/` - Ручки для сумки кожаные
 - `/catalog/062-ruchka-dlya-sumki-naplechnaya/` - Ручка для сумки наплечная
 - `/catalog/067-ruchki-dlya-sumki-karabiny/` - Ручки для сумки кожаные с карабинами
+- `/catalog/069-kapkholder-oranzhevyy/` - Капхолдер оранжевый
 
 ## Старые SEO-страницы каталога
 
@@ -83,21 +85,29 @@ dinarcraft/
 - `/catalog/ezhednevniki-kozha-optom/` - кожаные ежедневники А5 оптом;
 - `/catalog/ochechniki-kozha-optom/` - кожаные очечники оптом;
 - `/catalog/breloki-kozha-optom/` - кожаные брелоки оптом;
-- `/catalog/shildy-birdekel-kozha/` - кожаные шильды и бирдекели.
+- `/catalog/shildy-birdekel-kozha/` - кожаные шильды и бирдекели;
+- `/catalog/kozhanaya-furnitura-optom/` - кожаная фурнитура и детали оптом;
+- `/catalog/kapholdery-optom/` - капхолдеры оптом;
+- `/catalog/ruchki-dlya-sumok-optom/` - ручки для сумок оптом.
 
 Их нельзя удалять или менять без отдельной SEO-проверки, потому что они есть в `sitemap.xml`.
 
 ## Статьи
 
-Фактически существуют 5 страниц статей:
+Фактически существуют 10 страниц статей:
 
 - `/articles/kak-zakazat-kozhanie-izdeliya-optom/` - Как заказать кожаные изделия оптом;
 - `/articles/kak-podgotovit-logotip-dlya-tisneniya/` - Как подготовить логотип для тиснения;
 - `/articles/chto-vliyaet-na-cenu-kozhanyh-izdeliy/` - Что влияет на цену кожаных изделий;
 - `/articles/remni-iz-stropy-optom/` - Ремни из стропы оптом;
-- `/articles/ezhednevniki-s-tisneniem-optom/` - Ежедневники с тиснением оптом.
+- `/articles/ezhednevniki-s-tisneniem-optom/` - Ежедневники с тиснением оптом;
+- `/articles/pochemu-kozhanye-izdeliya-ruchnoy-raboty-stoyat-dorozhe/` - Почему кожаные изделия ручной работы стоят дороже;
+- `/articles/kozhanyy-kapkholder-dlya-kofe-s-soboy/` - Кожаный капхолдер для кофе с собой;
+- `/articles/merch-dlya-kofeyni-s-logotipom/` - Мерч для кофейни с логотипом;
+- `/articles/kak-vybrat-kozhanyy-ochechnik/` - Как выбрать кожаный очечник;
+- `/articles/kozhanyy-bloknot-na-koltsah-a5/` - Кожаный блокнот на кольцах А5.
 
-На странице `/articles/` также есть карточки будущих материалов с пометкой "Материал в подготовке".
+На странице `/articles/` размещены 10 карточек опубликованных материалов; карточек «Материал в подготовке» нет.
 
 ## Страницы в sitemap.xml
 
@@ -105,11 +115,11 @@ dinarcraft/
 
 - главная: `https://dinarcraft.ru/`;
 - основные разделы: `/catalog/`, `/services/`, `/cooperation/`, `/articles/`, `/privacy/`;
-- 6 старых SEO-страниц каталога;
-- 5 статей;
-- 21 товарная страница.
+- 9 групповых SEO-страниц каталога;
+- 10 статей;
+- 22 товарные страницы.
 
-Всего в sitemap сейчас 38 URL.
+Всего в sitemap сейчас 47 URL.
 
 ## Роль разделов
 
