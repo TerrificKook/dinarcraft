@@ -1070,6 +1070,26 @@ body > section.contact-section{padding:clamp(42px,5vw,64px) clamp(22px,6vw,76px)
 .hm-equipment span{color:var(--hm-accent);font-size:.7rem;font-weight:760;letter-spacing:.14em}
 .hm-equipment strong{margin-top:20px;font-size:1.18rem;line-height:1.25}
 .hm-equipment small{margin-top:4px;color:rgba(29,29,27,.56);font-size:.84rem}
+.home-modern main>.hm-production{background:#f5f2ec}
+.hm-production-intro{max-width:760px;margin-top:22px;color:rgba(29,29,27,.62);line-height:1.65}
+.hm-production-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.hm-production-card{overflow:hidden;border:1px solid rgba(29,29,27,.1);border-radius:26px;background:#fff}
+.hm-production-card-wide{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.45fr);align-items:stretch}
+.hm-production-card figure{margin:0;background:#dedad2}
+.hm-production-card:not(.hm-production-card-wide) figure{aspect-ratio:3/4}
+.hm-production-card-wide figure{aspect-ratio:4/3}
+.hm-production-card img{width:100%;height:100%;object-fit:cover}
+.hm-production-card>div{padding:clamp(24px,3vw,36px)}
+.hm-production-card-wide>div{display:flex;flex-direction:column;justify-content:center}
+.hm-production-card h3{font-size:clamp(1.7rem,2.8vw,2.7rem);line-height:1.05}
+.hm-production-card p{margin-top:14px;color:rgba(29,29,27,.62);line-height:1.58}
+.hm-production-actions{justify-content:center;margin-top:30px}
+.workshop-proof-inner{display:grid;grid-template-columns:minmax(220px,.42fr) minmax(0,.58fr);max-width:980px;margin:0 auto;overflow:hidden;border:1px solid rgba(74,46,26,.13);border-radius:18px;background:var(--paper);box-shadow:0 16px 42px rgba(38,28,20,.07)}
+.workshop-proof figure{aspect-ratio:4/3;margin:0;background:#dedad2}
+.workshop-proof img{width:100%;height:100%;object-fit:contain}
+.workshop-proof-inner>div{display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,4vw,44px)}
+.workshop-proof h2{font-size:clamp(1.9rem,3vw,2.8rem);line-height:1.08}
+.workshop-proof p{margin-top:16px;color:var(--muted);line-height:1.58}
 .home-modern main>.hm-contact{
   padding:clamp(84px,9vw,122px) max(24px,calc((100vw - 1240px)/2));
   background:var(--hm-warm);
@@ -1181,6 +1201,8 @@ body > section.contact-section{padding:clamp(42px,5vw,64px) clamp(22px,6vw,76px)
   .hm-stat-panel strong{font-size:2.15rem}
   .hm-capabilities-copy{position:static}
   .hm-equipment li{min-height:132px;padding:18px 16px}
+  .hm-production-card-wide{grid-template-columns:1fr}
+  .hm-production-card-wide>div{display:block}
   .home-modern main>.hm-contact{padding:70px 22px}
   .hm-contact-grid{grid-template-columns:1fr}
   .hm-order-card,
@@ -1195,6 +1217,12 @@ body > section.contact-section{padding:clamp(42px,5vw,64px) clamp(22px,6vw,76px)
   .hm-stat-panel>.hm-stat-note{grid-column:1}
   .hm-equipment{grid-template-columns:1fr}
   .hm-equipment li:nth-child(even){border-left:1px solid rgba(29,29,27,.13)}
+  .hm-production-grid{grid-template-columns:1fr}
+  .hm-production-card,
+  .hm-production-card-wide{grid-column:1;border-radius:20px}
+  .hm-production-card>div{padding:22px}
+  .workshop-proof-inner{grid-template-columns:1fr}
+  .workshop-proof figure{aspect-ratio:3/2}
 }
 
 @media(prefers-reduced-motion:reduce){
