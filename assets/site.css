@@ -2369,6 +2369,36 @@ body > section.contact-section{padding:clamp(42px,5vw,64px) clamp(22px,6vw,76px)
 .article-page .article-body p,
 .article-page .article-body li{color:#5d5852}
 .article-page .article-body figure{border-radius:18px;overflow:hidden}
+.article-page .article-body .article-photo{
+  aspect-ratio:auto;
+  background:#f4f1eb;
+}
+.article-page .article-body .article-photo img{
+  display:block;
+  width:100%;
+  max-width:none;
+  height:auto;
+  object-fit:contain;
+  background:transparent;
+  cursor:default;
+}
+.article-page .article-body figcaption{
+  padding:12px 16px;
+  background:#f4f1eb;
+  color:#6f6860;
+  font-size:.86rem;
+  line-height:1.45;
+}
+.article-page .article-body .article-model-comparison{margin:26px 0 34px}
+.article-page .article-body > .article-photo:first-of-type{max-width:480px;margin-inline:auto!important}
+.article-page .article-body .article-model-comparison figure{margin:0 0 16px}
+.article-page .article-body .article-model-comparison .article-card,
+.article-page .article-body .article-model-comparison .article-card:nth-child(6n+1){
+  background:#fff;
+  border-color:var(--sw-line);
+  color:inherit;
+}
+.article-page .article-body .article-model-comparison .article-card p{color:#5d5852}
 .article-page .article-meta{
   gap:8px 18px;
   padding-bottom:20px;
