@@ -16,7 +16,15 @@
 .reviews-topics{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .reviews-topics a{padding:8px 16px;border:1px solid #b2a18e;border-radius:999px;font-size:.85rem}
 .reviews-topics a:hover{background:#fffdf9}
-.reviews-page-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:24px}
+.reviews-page-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:20px}
+.home-modern .review-category{padding:0;scroll-margin-top:110px}
+.home-modern .review-category+.review-category{margin-top:64px;padding-top:40px;border-top:1px solid #d8cfc2}
+.review-category-head{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:24px}
+.home-modern .review-category-head h2{font-size:2rem;letter-spacing:-.035em}
+.review-category-head h2 span{display:inline-block;margin-left:12px;color:#786b5d;font-size:.9rem;font-weight:400;letter-spacing:0;white-space:nowrap}
+.review-category-head p{margin-top:10px;color:#62594f;font-size:.95rem}
+.review-category-head>.review-catalog-link{flex-shrink:0}
+.home-modern .hm-review h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.025em}
 .hm-review{min-width:0;margin:0;padding:24px;background:#fffdf9;border:1px solid rgba(29,29,27,.1);border-radius:20px;scroll-margin-top:30px}
 .hm-review-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px;color:#6e6258;font-size:.75rem}
 .hm-review-source{padding:4px 9px;border:1px solid #ded5c9;border-radius:999px;color:#5e3a27;font-weight:700}
@@ -44,6 +52,6 @@
 .home-modern .reviews-order h2{font-size:1.6rem;letter-spacing:-.03em}
 .reviews-order p{max-width:650px;margin-top:12px;color:#62594f}
 .reviews-order .btn{flex-shrink:0}
-@media(max-width:1100px){.review-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hm-reviews-bottom,.reviews-order{align-items:flex-start;flex-direction:column}}
+@media(max-width:1100px){.review-preview-grid,.reviews-page-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hm-reviews-bottom,.reviews-order{align-items:flex-start;flex-direction:column}.review-category-head{align-items:flex-start;flex-direction:column;gap:10px}}
 @media(max-width:700px){.reviews-page-grid{grid-template-columns:1fr}.reviews-hero,.reviews-content{padding:40px 20px}.hm-review{padding:18px}.reviews-breadcrumbs{margin-bottom:28px}.reviews-order{padding:24px}.reviews-order .btn{width:100%}.hm-reviews-shops{width:100%}.hm-reviews-shops a{width:100%}}
 @media(max-width:480px){.review-preview-grid{grid-template-columns:1fr}.review-preview strong{padding:14px 18px}}
