@@ -1,0 +1,49 @@
+/* Reviews: genuine marketplace screenshots with accessible text and source links. */
+.hm-reviews{background:#eae3d9}
+.hm-reviews-intro{max-width:690px;margin-top:24px;color:#62594f;line-height:1.65}
+.review-preview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.review-preview{display:flex;flex-direction:column;overflow:hidden;background:#fff;border:1px solid #ded5c9;border-radius:18px}
+.review-preview img{width:100%;height:auto}
+.review-preview strong{display:flex;justify-content:space-between;gap:8px;margin-top:auto;padding:18px;font-size:.9rem}
+.review-preview:hover strong{color:#8a5a3b}
+.reviews-hero,.reviews-content{padding:60px max(24px,calc((100vw - 1240px)/2))}
+.reviews-hero{padding-bottom:40px;background:#eae3d9}
+.reviews-breadcrumbs{display:flex;gap:12px;margin-bottom:42px;font-size:.85rem;color:#62594f}
+.reviews-breadcrumbs a{text-decoration:underline;text-underline-offset:4px}
+.reviews-hero h1{max-width:850px;margin-top:20px;font-size:clamp(2.6rem,5vw,4.7rem);line-height:1.02}
+.reviews-hero>p{max-width:770px;margin-top:24px;color:#62594f;font-size:1.05rem}
+.reviews-hero .reviews-hero-note{margin-top:12px;font-size:.88rem}
+.reviews-topics{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.reviews-topics a{padding:8px 16px;border:1px solid #b2a18e;border-radius:999px;font-size:.85rem}
+.reviews-topics a:hover{background:#fffdf9}
+.reviews-page-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:24px}
+.hm-review{min-width:0;margin:0;padding:24px;background:#fffdf9;border:1px solid rgba(29,29,27,.1);border-radius:20px;scroll-margin-top:30px}
+.hm-review-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px;color:#6e6258;font-size:.75rem}
+.hm-review-source{padding:4px 9px;border:1px solid #ded5c9;border-radius:999px;color:#5e3a27;font-weight:700}
+.home-modern .hm-review h2{font-size:1.5rem;line-height:1.25;letter-spacing:-.025em}
+.review-screenshot{display:block;margin:22px 0 18px;border:1px solid #e5ded4;border-radius:12px;overflow:hidden;background:#fff}
+.review-screenshot img{width:100%;height:auto}
+.review-screenshot span{display:block;padding:10px 14px;border-top:1px solid #eee;color:#62594f;font-size:.78rem;text-align:center}
+.review-transcript{margin:18px 0;color:#62594f;font-size:.9rem}
+.review-transcript summary{cursor:pointer;min-height:38px;padding:7px 0;font-weight:600}
+.review-transcript blockquote{margin:10px 0 20px;color:#231a14;font-size:1rem;line-height:1.65}
+.hm-review-author{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;font-size:.9rem}
+.hm-review time{color:#6e6258;font-size:.8rem}
+.hm-review-link,.review-catalog-link{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;color:#5e3a27;font-size:.88rem;font-weight:700}
+.hm-review-link{margin-top:14px;padding-top:12px;border-top:1px solid #e5ded4}
+.hm-review-link:hover,.review-catalog-link:hover{text-decoration:underline;text-underline-offset:4px}
+.hm-reviews a:focus-visible,.reviews-page main a:focus-visible,.review-transcript summary:focus-visible{outline:3px solid #74452e;outline-offset:5px}
+.hm-reviews-note{max-width:850px;margin-top:24px;color:#62594f;font-size:.82rem;line-height:1.6}
+.hm-reviews-bottom{display:flex;align-items:center;justify-content:space-between;gap:28px;margin-top:38px;padding-top:30px;border-top:1px solid rgba(29,29,27,.15)}
+.home-modern .hm-reviews-bottom h3{font-size:1.2rem;letter-spacing:-.025em}
+.hm-reviews-bottom p{margin-top:8px;color:#62594f;font-size:.88rem}
+.hm-reviews-shops{display:flex;flex-wrap:wrap;gap:10px}
+.hm-reviews-shops a{display:inline-flex;justify-content:center;align-items:center;gap:14px;min-height:48px;padding:12px 18px;border:1px solid #b2a18e;border-radius:999px;color:#422d20;font-size:.84rem;font-weight:700}
+.hm-reviews-shops a:hover{background:#eae3d9}
+.reviews-order{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:60px;padding:32px;border-radius:20px;background:#eae3d9}
+.home-modern .reviews-order h2{font-size:1.6rem;letter-spacing:-.03em}
+.reviews-order p{max-width:650px;margin-top:12px;color:#62594f}
+.reviews-order .btn{flex-shrink:0}
+@media(max-width:1100px){.review-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hm-reviews-bottom,.reviews-order{align-items:flex-start;flex-direction:column}}
+@media(max-width:700px){.reviews-page-grid{grid-template-columns:1fr}.reviews-hero,.reviews-content{padding:40px 20px}.hm-review{padding:18px}.reviews-breadcrumbs{margin-bottom:28px}.reviews-order{padding:24px}.reviews-order .btn{width:100%}.hm-reviews-shops{width:100%}.hm-reviews-shops a{width:100%}}
+@media(max-width:480px){.review-preview-grid{grid-template-columns:1fr}.review-preview strong{padding:14px 18px}}
