@@ -49,7 +49,7 @@
 | 20260927_114408.jpg | 03-leather-notebook.webp |
 | 20260927_114415.jpg | 04-notebook-embossing-detail.webp |
 | 20260927_114510.jpg | 05-leather-branding-examples.webp |
-| 20260927_114438.jpg | 06-leather-glasses-case-retouched-v4.webp |
+| 20260927_114438.jpg | 06-leather-glasses-case-retouched-v5.webp |
 | 20260927_114600.jpg | 07-leather-strap-embossing-detail.webp |
 
 Файлы сайта: `assets/images/articles/brendirovanie-izdeliy-iz-naturalnoy-kozhi/`. Для Google Drive сохраняются чистовые JPEG с исходным именем и суффиксом `-wood-clean`, для сайта - облегчённые WebP с сохранением пропорций.
@@ -80,11 +80,21 @@
 
 ## Дополнительная ретушь очечника
 
-По прямой просьбе владельца 27 сентября исправлены пятна и неравномерный тон кожи на очечнике, а надпись Dinarcraft развёрнута вдоль длинной стороны изделия. Использован встроенный imagegen; фон, конструкция, края, две видимые заклёпки и натуральная фактура сохранены. В данном кадре направление тиснения изменено на изображении, поэтому подпись в статье обозначает его как визуализацию расположения логотипа.
+По прямой просьбе владельца 27 сентября исправлены пятна и неравномерный тон кожи на очечнике, а надпись Dinarcraft развёрнута вдоль длинной стороны изделия. Использован встроенный imagegen. После публикации v4 владелец заметил ошибку замены фона в верхнем правом углу: часть внутренней стороны кожи превратилась в дерево. Сравнение с оригиналом подтвердило ошибку; восстановление описано ниже. В данном кадре направление тиснения изменено на изображении, поэтому подпись в статье обозначает его как визуализацию расположения логотипа.
 
 После уточнений владельца надпись выровнена по прямой линии параллельно краю клапана и сдвинута вправо для более равномерного размещения. Подключён `06-leather-glasses-case-retouched-v4.webp` (1086 x 1448, 288 286 байт). Прежние варианты очечника сохранены локально, но не используются на странице и не входят в выпуск. Чистовой JPEG обновлён на Google Drive с сохранением ID `1Oi20_TrTjoI-OnZMMkiCYW6Rl_FAphLZ`, имени `20260927_114438-wood-clean.jpg` и папки. Размер новой версии - 660 777 байт.
 
 Повторное чтение metadata Google Drive подтвердило версию v4 JPEG, размер 660 777 байт и прежнюю папку. Перед commit точный состав индекса экспортирован отдельно с опубликованными CSS и JS: при 1440/390 px прошли переход из списка, загрузка всех семи фото, размеры, содержание, мобильное меню и цели контактов с подменой `ym`; ошибок JavaScript и горизонтального переполнения нет. Скриншоты первого экрана и очечника просмотрены. Проверены локальные ссылки, один H1, уникальные ID, JSON-LD и `git diff --cached --check`. Подтверждение публикации записывается в `PROJECT_STATE.md`.
+
+### Восстановление верхнего правого угла, версия v5
+
+Исходник `20260927_114438.jpg` показывает внутреннюю ворсистую сторону кожи за широким клапаном рядом с частично видимым креплением. В v4 часть этой поверхности ошибочно заменена деревянным фоном. Встроенным imagegen восстановлена поверхность и её связь с краем изделия по оригиналу, с сохранением положения надписи. Общий выход изделия за границу кадра есть уже на исходнике; расширение кадра не выполнялось.
+
+В статье подключён `06-leather-glasses-case-retouched-v5.webp` (1086 x 1448, 270 388 байт). Прежний v4 сохранён. JPEG на Drive заменён в том же файле `1Oi20_TrTjoI-OnZMMkiCYW6Rl_FAphLZ`; повторное чтение подтвердило размер 637 892 байта и прежнюю папку. При 1440/390 px проверены загрузка фото, размеры, подпись и отсутствие горизонтального переполнения; мобильный скриншот просмотрен.
+
+Промпт восстановления v5:
+
+> Use case: precise-object-restoration. TWO INPUTS: Image 1 is the EDIT TARGET, the cleaned brown leather eyeglass case with diagonally aligned Dinarcraft on a light oak table. Image 2 is the ORIGINAL unretouched source photo on a dark table, used ONLY as a geometry reference for the missing upper-right product area. Restore ONE accidental background-removal mistake in Image 1: at the extreme UPPER RIGHT, behind the broad logo flap and just left/below the small partially visible brass fastener at the right border, a pale wooden triangular wedge is visible. In Image 2 this wedge is actually the flesh/suede INNER FACE of the SAME LEATHER CASE, continuous with the folded return edge. Restore that missing suede leather area to EXACTLY the original outline and extent, including its rounded inner end, thicker raw edge, relationship to the overlapping brown panel and partial brass fastener. The light oak background must not appear THROUGH a section of leather. Restore the original construction faithfully, do not invent a new flap, cutout, notch, seam or hardware. Match the visible inner suede to the natural grey-brown suede already seen at the left open end of Image 1, softly lit, with believable fibrous texture and edge thickness. Preserve Image 1 completely outside this tiny upper-right repair: exact Dinarcraft text and letter alignment, current stamp position and size, cleaned even brown outer leather, all folds, rivets, lower end, wood table, lighting, shadows, framing and portrait 3:4 dimensions. DO NOT restore original stains or the original horizontal lettering. DO NOT change the whole product or crop. The goal is restoring a real missing part using the original photo, not retouching the inscription further. Output one final restored product photo.
 
 Промпт выравнивания по краю и смещения вправо, версия v4:
 
