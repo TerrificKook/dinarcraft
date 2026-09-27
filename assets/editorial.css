@@ -1,0 +1,91 @@
+/* Shared editorial presentation. Content and SEO metadata remain in static HTML. */
+.article-page .article-hero{min-height:0;padding:128px 24px 64px}
+.article-page .article-hero-inner{max-width:1180px}
+.article-page .article-hero-inner h1{max-width:1040px;margin-top:20px;font-size:clamp(2rem,4.2vw,4.5rem);line-height:1.08;letter-spacing:-.035em;text-wrap:balance;overflow-wrap:normal}
+.article-page .article-hero-inner>p{max-width:740px;font-size:clamp(1rem,1.5vw,1.15rem);line-height:1.65;color:#d8d1c7}
+.article-breadcrumbs{display:flex;gap:12px;align-items:center;margin:0 0 30px;font-size:.78rem;color:#a99f91}
+.article-breadcrumbs a{color:#d8d1c7;text-decoration:none}
+.article-breadcrumbs a:hover{text-decoration:underline;text-underline-offset:4px}
+.article-page .article-main{padding:52px 24px 88px;background:#f2efe9}
+.article-page .article-layout{max-width:1180px;grid-template-columns:minmax(0,820px) minmax(240px,288px);gap:32px}
+.article-page .article-body{padding:clamp(24px,4vw,52px);border:1px solid #e3ded5;border-radius:16px;background:#fffdfa;font-size:1.0625rem;line-height:1.8}
+.article-page .article-body>p,.article-page .article-body li{color:#4e4b45}
+.article-page .article-body>h2{margin:54px 0 20px;padding-top:24px;border-top:1px solid #e3ded5;font-size:clamp(1.65rem,2.5vw,2.35rem);line-height:1.2;letter-spacing:-.025em;text-wrap:balance;scroll-margin-top:110px}
+.article-page .article-body h3{line-height:1.35;scroll-margin-top:110px}
+.article-page .article-body a{color:#835631;text-decoration-thickness:1px;text-underline-offset:4px}
+.article-page .article-body a:focus-visible,.article-breadcrumbs a:focus-visible,.article-page .article-toc a:focus-visible{outline:2px solid #ad7847;outline-offset:4px;border-radius:2px}
+.article-page .article-body>figure,.article-page .article-body>.article-photo:first-of-type{width:100%;max-width:530px;margin:34px auto!important;border-radius:12px;border:1px solid #e4ded3;background:#f3efe8;aspect-ratio:auto}
+.article-page .article-body>figure img{display:block;width:100%;height:auto;max-height:630px;object-fit:contain;aspect-ratio:auto;transform:none}
+.article-page .article-body figure figcaption{padding:15px 18px;font-size:.84rem;line-height:1.55;background:#f3efe8;color:#655f56}
+.article-page .article-body .article-photo-grid{gap:20px;max-width:none}
+.article-page .article-body .article-photo-grid figure img{height:auto;aspect-ratio:auto;object-fit:contain}
+.article-page .article-meta{font-size:.75rem;line-height:1.6;gap:5px 16px;margin-bottom:28px}
+.article-page .article-meta p:first-child{flex-basis:100%}
+.article-reading-time{color:#8a5a35;white-space:nowrap}
+.article-page .article-sidebar{top:98px;gap:18px}
+.article-page .article-toc{padding:22px 20px;border:1px solid #e0d8cc;border-radius:12px;background:#fffdfa}
+.article-page .article-toc h2{font-size:.73rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.article-page .article-toc ol{padding-left:20px;max-height:48vh}
+.article-page .article-toc li{font-size:.8rem;line-height:1.5;padding-left:4px}
+.article-page .article-toc a{color:#71685d;text-decoration:none;transition:color .2s}
+.article-page .article-toc a[aria-current="location"]{color:#8b4f26;text-decoration:underline;text-underline-offset:4px}
+.article-page .article-side-cta{padding:24px 20px;background:#e7ddcf;border:0;border-radius:12px}
+.article-page .article-side-cta h2{font-size:1.4rem;line-height:1.2}
+.article-page .article-side-actions .btn{border-radius:6px}
+.article-toc-disclosure>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#4b3928;font-size:.85rem;font-weight:700;padding:4px 0}
+.article-toc-disclosure>summary::-webkit-details-marker{display:none}
+.article-toc-disclosure>summary:after{content:'+';font-size:1.3rem}
+.article-toc-disclosure[open]>summary:after{content:'−'}
+.article-toc-disclosure>summary:focus-visible{outline:2px solid #ad7847;outline-offset:4px}
+.article-reading-progress{position:fixed;top:0;left:0;width:100%;height:3px;background:#b17c4b;transform:scaleX(0);transform-origin:left;z-index:9999;pointer-events:none}
+.article-page .article-evidence-link{padding:22px 24px;border-left:3px solid #ac794c;background:#f2eadd;border-radius:0 8px 8px 0}
+.article-page .article-body .contact-actions{margin-top:30px;gap:12px}
+.article-page .article-body .contact-actions .btn{border-radius:6px}
+.kap-branding-example .kap-detail-grid{align-items:center}
+.kap-branding-photo{max-width:440px;margin:0 auto;background:#ece4d9;border-radius:14px;overflow:hidden}
+.kap-branding-photo img{display:block;width:100%;height:auto}
+.kap-branding-photo figcaption{padding:14px 20px;font-size:.85rem;color:#66594b}
+.kap-branding-example .kap-detail p{margin:20px 0;line-height:1.7}
+.articles-index-page .page-hero{min-height:0;padding:130px 24px 60px}
+.articles-index-page .page-hero h1{max-width:1000px;font-size:clamp(2.2rem,5vw,4.7rem);line-height:1.08;text-wrap:balance}
+.articles-index-page>section{padding:48px 24px 88px;background:#f2efe9}
+.articles-index-page .article-list{max-width:1180px;margin:auto;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.articles-index-page .article-list .article-card{display:flex;flex-direction:column;min-height:0;padding:0 24px 24px;border:1px solid #e1d9ce;border-radius:12px;overflow:hidden;background:#fffdfa;color:#302923;transition:transform .25s,box-shadow .25s}
+.articles-index-page .article-card:hover{transform:translateY(-4px);box-shadow:0 12px 26px #3825100d}
+.articles-index-page .article-card-media{display:block;margin:0 -24px 24px;background:#e8dfd1;overflow:hidden}
+.articles-index-page .article-card-media img{display:block;width:100%;height:230px;object-fit:cover;transition:transform .5s}
+.articles-index-page .article-card:hover .article-card-media img{transform:scale(1.025)}
+.articles-index-page .article-list .article-card h2{font-size:1.35rem;line-height:1.28;letter-spacing:-.02em;color:#302923;margin:0 0 14px}
+.articles-index-page .article-list .article-card p{font-size:.9rem;line-height:1.6;color:#6c6257;margin:0 0 26px}
+.articles-index-page .article-list .article-card .card-link{margin-top:auto;padding-top:18px;border-top:1px solid #e3dacf;color:#8a5a35}
+@media(min-width:1001px){.article-toc-disclosure>summary{display:none}}
+@media(max-width:1100px){.article-page .article-layout{grid-template-columns:minmax(0,1fr) 260px}.article-page .article-sidebar{position:sticky;grid-row:auto}.article-page .article-body{grid-row:auto}}
+@media(max-width:1000px){
+ .article-page .article-layout{grid-template-columns:minmax(0,1fr);gap:20px;max-width:800px}
+ .article-page .article-sidebar{display:contents}
+ .article-page .article-toc{grid-row:1;padding:16px 20px}
+ .article-page .article-body{grid-row:2}
+ .article-page .article-side-cta{grid-row:3}
+ .article-page .article-toc ol{columns:1;display:block;max-height:50vh;padding-top:16px;margin-top:0}
+ .article-toc-disclosure~h2{display:none}
+ .article-page .article-toc:has(.article-toc-disclosure)>h2{display:none}
+ .articles-index-page .article-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ .article-page .article-hero{padding:100px 20px 36px}
+ .article-page .article-hero-inner h1{font-size:clamp(1.9rem,7.4vw,2.7rem);line-height:1.12;letter-spacing:-.025em}
+ .article-breadcrumbs{margin-bottom:24px}
+ .article-page .article-main{padding:24px 14px 48px}
+ .article-page .article-body{padding:24px 20px;font-size:1rem;line-height:1.75;border-radius:10px}
+ .article-page .article-body>h2{font-size:1.6rem;line-height:1.22;margin-top:38px;padding-top:22px}
+ .article-page .article-body>figure{margin-top:26px!important;margin-bottom:26px!important}
+ .article-page .article-meta{font-size:.72rem}
+ .article-page .article-body .article-photo-grid{grid-template-columns:1fr}
+ .article-page .article-body .contact-actions .btn{width:100%;justify-content:center;text-align:center;white-space:normal}
+ .articles-index-page .page-hero{padding:105px 20px 40px}
+ .articles-index-page>section{padding:24px 16px 48px}
+ .articles-index-page .article-list{grid-template-columns:1fr;gap:20px}
+ .articles-index-page .article-card-media img{height:250px}
+}
+@media(prefers-reduced-motion:reduce){.article-page *,.articles-index-page *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+@media print{.article-page .article-sidebar,.article-reading-progress{display:none}.article-page .article-layout{display:block}.article-page .article-body{padding:0;border:0}.article-page .article-main{padding:0;background:white}}
