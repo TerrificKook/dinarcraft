@@ -409,3 +409,6 @@
     if (event.key === 'Escape' && !overlay.hidden) closeSearch();
   });
 })();
+
+// First-party consent controller; production analytics stays disabled until review.
+(function(){var s=document.createElement("script");s.src="/assets/consent-metrika.js";document.head.appendChild(s);})();
