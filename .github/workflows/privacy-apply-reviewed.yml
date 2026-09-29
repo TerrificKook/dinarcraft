@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      PRIVACY_WORKDIR: ${{ runner.temp }}/privacy-review
+      PRIVACY_WORKDIR: /tmp/privacy-review
       PRIVACY_REPO: dinarcraft
     steps:
       - uses: actions/checkout@v4
@@ -73,9 +73,9 @@ jobs:
         with:
           name: privacy-qa-results
           path: |
-            ${{ runner.temp }}/privacy-review/*results.json
-            ${{ runner.temp }}/privacy-review/browser-summary.json
-            ${{ runner.temp }}/privacy-review/browser-partial.json
-            ${{ runner.temp }}/privacy-review/change_stats.json
-            ${{ runner.temp }}/privacy-review/screenshots/*.png
+            /tmp/privacy-review/*results.json
+            /tmp/privacy-review/browser-summary.json
+            /tmp/privacy-review/browser-partial.json
+            /tmp/privacy-review/change_stats.json
+            /tmp/privacy-review/screenshots/*.png
           retention-days: 14
