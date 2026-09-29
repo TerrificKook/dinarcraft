@@ -1,4 +1,4 @@
-name: Apply reviewed minimal-privacy changes
+name: Verify and stage reviewed privacy changes
 on:
   push:
     branches: [fix/privacy-minimal-2026-09-29]
@@ -15,18 +15,15 @@ jobs:
       PRIVACY_REPO: dinarcraft
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Load checksummed, reviewed transformations
+      - name: Reproduce checksummed source changes
         run: |
           python3 - <<'PY'
-          import os, pathlib, urllib.request, gzip, base64, hashlib, json, subprocess
+          import os,pathlib,urllib.request,gzip,base64,hashlib,json,subprocess,shutil
           root=pathlib.Path(os.environ['PRIVACY_WORKDIR']);root.mkdir()
           base='https://raw.githubusercontent.com/TerrificKook/dinarcraft/410f91733d36897e221500fcdf4bb181ef92deea/.privacy-review/'
-          encoded=''.join(urllib.request.urlopen(base+f'scripts.{i}.b64').read().decode().strip() for i in range(3))
-          encoded=encoded.replace('XrPpRpRGC','XrPpRGC')
+          encoded=''.join(urllib.request.urlopen(base+f'scripts.{i}.b64').read().decode().strip() for i in range(3)).replace('XrPpRpRGC','XrPpRGC')
           data=gzip.decompress(base64.b64decode(encoded,validate=True))
-          assert hashlib.sha256(data).hexdigest()=='5e16fc65fb72a9e0fe996d0432d5ae28c14c545a7eaadd0e10065c554c3445f2','Transformation checksum mismatch'
+          assert hashlib.sha256(data).hexdigest()=='5e16fc65fb72a9e0fe996d0432d5ae28c14c545a7eaadd0e10065c554c3445f2'
           for name,text in json.loads(data).items():
               assert name in {'apply_changes.py','add_deployment.py','browser_test.py','qa_static.py'}
               (root/name).write_text(text,encoding='utf-8')
@@ -35,36 +32,32 @@ jobs:
               dest=root/'before'/repo
               subprocess.run(['git','clone','--quiet','--depth','1','--branch','main',f'https://github.com/TerrificKook/{repo}.git',str(dest)],check=True)
               assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=dest,text=True).strip()==sha, f'{repo}: main changed; re-audit required'
-              import shutil
               shutil.rmtree(dest/'.git')
           PY
-      - name: Prepare exact reviewed changes
-        run: |
           python3 "$PRIVACY_WORKDIR/apply_changes.py"
           python3 "$PRIVACY_WORKDIR/add_deployment.py"
           python3 -m pip install --quiet beautifulsoup4 playwright
           python3 "$PRIVACY_WORKDIR/qa_static.py"
-      - name: Commit only to this review branch
+      - name: Stage website source only on review branch
         run: |
           python3 - <<'PY'
-          import os,pathlib,subprocess,shutil
-          root=pathlib.Path(os.environ['PRIVACY_WORKDIR']);repo=os.environ['PRIVACY_REPO'];prepared=root/'after'/repo
+          import os,pathlib,subprocess
+          root=pathlib.Path(os.environ['PRIVACY_WORKDIR']);prepared=root/'after'/os.environ['PRIVACY_REPO']
           assert os.environ['GITHUB_REF_NAME']=='fix/privacy-minimal-2026-09-29'
           subprocess.run(['git','add','-A'],cwd=prepared,check=True)
-          patch=subprocess.check_output(['git','diff','--cached','--binary'],cwd=prepared)
+          patch=subprocess.check_output(['git','diff','--cached','--binary','--','.',':(exclude).github/**'],cwd=prepared)
           subprocess.run(['git','apply','--check','-'],input=patch,check=True)
           subprocess.run(['git','apply','-'],input=patch,check=True)
-          for name in ['privacy-source-audit.yml','privacy-four-sites.yml','privacy-apply-reviewed.yml']:
-              pathlib.Path('.github/workflows',name).unlink(missing_ok=True)
-          if pathlib.Path('.privacy-review').is_dir():shutil.rmtree('.privacy-review')
           subprocess.run(['git','config','user.name','github-actions[bot]'],check=True)
           subprocess.run(['git','config','user.email','41898282+github-actions[bot]@users.noreply.github.com'],check=True)
           subprocess.run(['git','add','-A'],check=True)
-          subprocess.run(['git','diff','--cached','--stat'],check=True)
-          subprocess.run(['git','commit','-m','fix: minimize visitor data collection and prepare safe REG.RU publishing'],check=True)
+          changed=subprocess.check_output(['git','diff','--cached','--name-only'],text=True).splitlines()
+          assert not any(p.startswith('.github/') for p in changed)
+          subprocess.run(['git','commit','-m','fix: remove automatic tracking and simplify direct-contact websites'],check=True)
           subprocess.run(['git','push','origin','HEAD:refs/heads/fix/privacy-minimal-2026-09-29'],check=True)
           PY
-      - name: Browser verification of public packages
+      - name: Browser verification of all four public packages
+        if: always()
         run: |
           python3 -m playwright install --with-deps chromium > "$RUNNER_TEMP/playwright-install.log" 2>&1
           python3 "$PRIVACY_WORKDIR/browser_test.py" > "$PRIVACY_WORKDIR/browser-summary.json" 2>&1
