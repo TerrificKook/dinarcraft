@@ -1,0 +1,12 @@
+{
+  "source": ".",
+  "dirs": [
+    "assets",
+    "articles",
+    "catalog",
+    "cooperation",
+    "privacy",
+    "reviews",
+    "services"
+  ]
+}
