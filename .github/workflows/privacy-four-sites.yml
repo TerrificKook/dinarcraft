@@ -1,0 +1,30 @@
+name: Four-site privacy snapshot
+on:
+  push:
+    branches: [fix/privacy-minimal-2026-09-29]
+    paths: [.github/workflows/privacy-four-sites.yml]
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read public website repositories
+        env:
+          GIT_TERMINAL_PROMPT: '0'
+        run: |
+          set -euo pipefail
+          mkdir snapshot
+          for repo in dinarcraft dinar-moscow dinar-agency marat-hudvagen; do
+            git clone --depth 1 --branch main "https://github.com/TerrificKook/${repo}.git" "snapshot/${repo}"
+            git -C "snapshot/${repo}" rev-parse HEAD > "snapshot/${repo}.commit.txt"
+            git -C "snapshot/${repo}" archive --format=tar HEAD > "snapshot/${repo}.tar"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: four-sites-source
+          path: |
+            snapshot/*.tar
+            snapshot/*.commit.txt
+          retention-days: 3
