@@ -175,8 +175,8 @@
     '<button class="site-search-close" type="button" aria-label="Закрыть поиск">&times;</button>',
     '</div>',
     '<label class="site-search-label" for="site-search-input">Поиск по сайту</label>',
-    '<input class="site-search-input" id="site-search-input" type="search" autocomplete="off" placeholder="Например: капхолдер, ежедневник А5, 032">',
-    '<div class="site-search-results" aria-live="polite"></div>',
+    '<input class="site-search-input ym-disable-keys ym-hide-content" id="site-search-input" type="search" autocomplete="off" placeholder="Например: капхолдер, ежедневник А5, 032">',
+    '<div class="site-search-results ym-hide-content" aria-live="polite"></div>',
     '</section>'
   ].join('');
   document.body.appendChild(overlay);
