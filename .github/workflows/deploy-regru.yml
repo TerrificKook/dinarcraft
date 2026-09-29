@@ -1,0 +1,55 @@
+name: Publish public files to REG.RU (manual)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: regru-production
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Require explicit hosting configuration
+        env:
+          ENABLED: ${{ vars.REGRU_DEPLOY_ENABLED }}
+        run: |
+          test "$ENABLED" = true || { echo 'First configure REG.RU, review the destination and set REGRU_DEPLOY_ENABLED=true.'; exit 1; }
+      - name: Build public-only directory
+        run: |
+          set -euo pipefail
+          if [ -f scripts/build.mjs ]; then npm run build; npm run check; fi
+          python3 tools/package_public.py
+      - name: Publish through verified SSH
+        env:
+          HOST: ${{ secrets.REGRU_HOST }}
+          USER: ${{ secrets.REGRU_USER }}
+          PORT: ${{ secrets.REGRU_PORT }}
+          REMOTE_PATH: ${{ secrets.REGRU_REMOTE_PATH }}
+          PRIVATE_KEY: ${{ secrets.REGRU_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.REGRU_KNOWN_HOSTS }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${HOST:?Set REGRU_HOST}" "${USER:?Set REGRU_USER}" "${REMOTE_PATH:?Set REGRU_REMOTE_PATH}"
+          : "${PRIVATE_KEY:?Set REGRU_SSH_KEY}" "${KNOWN_HOSTS:?Set REGRU_KNOWN_HOSTS from the verified hosting key}"
+          PORT="${PORT:-22}"
+          [[ "$HOST" =~ ^[a-zA-Z0-9][a-zA-Z0-9.-]*$ ]]
+          [[ "$USER" =~ ^[a-zA-Z0-9_][a-zA-Z0-9_-]*$ ]]
+          [[ "$PORT" =~ ^[0-9]+$ ]] && ((PORT>0 && PORT<65536))
+          [[ "$REMOTE_PATH" =~ ^/[a-zA-Z0-9._/-]+$ ]] && [ "${#REMOTE_PATH}" -gt 10 ]
+          [[ "$REMOTE_PATH" != *'/../'* && "$REMOTE_PATH" != */.. ]]
+          umask 077
+          key="$RUNNER_TEMP/regru-key"
+          known="$RUNNER_TEMP/regru-known-hosts"
+          trap 'rm -f "$key" "$known"' EXIT
+          printf '%s\n' "$PRIVATE_KEY" > "$key"
+          printf '%s\n' "$KNOWN_HOSTS" > "$known"
+          export RSYNC_RSH="ssh -i $key -p $PORT -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$known"
+          # Only upload the reviewed public directory. Do not read logs/mail or delete other server files.
+          rsync -rltz --safe-links --delay-updates dist-regru/ "$USER@$HOST:${REMOTE_PATH%/}/"
