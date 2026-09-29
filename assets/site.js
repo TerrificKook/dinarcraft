@@ -12,7 +12,7 @@
     ['Telegram', 'https://t.me/mrdinar'],
     ['MAX', 'https://max.ru/u/f9LHodD0cOKdKxpZWRTf6opqWFE4_FBbFln83YGEvx6yfmukrq7u5bdn0Wg'],
     ['+7 (995) 881-50-95', 'tel:+79958815095'],
-    ['Email', 'mailto:db@dinardb.ru']
+    ['Email', 'mailto:b2b@dinarcraft.ru']
   ];
   var panelId = 'mobile-nav-panel';
   var button = document.createElement('button');
