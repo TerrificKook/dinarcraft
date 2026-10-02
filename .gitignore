@@ -1,3 +1,5 @@
 _local_research/
 .codex-remote-attachments/
 /dist-regru/
+__pycache__/
+*.py[cod]

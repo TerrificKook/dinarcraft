@@ -8,5 +8,25 @@
     "privacy",
     "reviews",
     "services"
+  ],
+  "domain": "dinarcraft.ru",
+  "site_url": "https://dinarcraft.ru/",
+  "repository": "TerrificKook/dinarcraft",
+  "root_files": [
+    "404.html",
+    "apple-touch-icon.png",
+    "favicon-32.png",
+    "favicon.ico",
+    "favicon.png",
+    "favicon.svg",
+    "google6ccba9547dfbd366.html",
+    "index.html",
+    "logo.png",
+    "privacy.html",
+    "robots.txt",
+    "sitemap.xml",
+    "yandex_8c6bf607b65193e7.html",
+    "yandex_b28c22483554a6c.html",
+    "yandex_b828c22483554a6c.html"
   ]
 }
