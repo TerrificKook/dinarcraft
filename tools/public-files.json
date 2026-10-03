@@ -13,6 +13,7 @@
   "site_url": "https://dinarcraft.ru/",
   "repository": "TerrificKook/dinarcraft",
   "root_files": [
+    ".htaccess",
     "404.html",
     "apple-touch-icon.png",
     "favicon-32.png",
