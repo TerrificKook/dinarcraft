@@ -13,12 +13,12 @@ const source = fs.readFileSync(modulePath, "utf8");
 const declaration = source.match(/const config = (\{[^\r\n]+\});/);
 assert(declaration, "Site configuration is present");
 const config = vm.runInNewContext(`(${declaration[1]})`);
-assert.equal(config.enabled, false, "Production release gate remains off");
+assert.equal(config.enabled, true, "Prepared minimal release is enabled locally; publication needs owner approval");
 const testSource = source.replace("enabled: false", "enabled: true");
 const origin = `https://${config.hosts[0]}`;
 const indexUrl = `${origin}/`;
 const goalPath = config.contentPaths[0] || "/site-final/gallery.html";
-const fixture = `<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Проверка сайта</title><script src="/test-consent.js" defer></script></head><body><a id="contact" href="tel:+74950000000" onclick="event.preventDefault()">Позвонить</a><a id="content" href="${goalPath}" ${config.contentPaths.length ? "" : "data-photo"} onclick="event.preventDefault()">Материал</a><input id="private" value="private-sentinel@example.test"><footer></footer></body></html>`;
+const fixture = `<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Проверка сайта</title><script src="/test-consent.js" defer></script></head><body><a id="contact" href="tel:+74950000000" onclick="event.preventDefault()"><span>Позвонить</span></a><a id="email" href="mailto:public@example.test" onclick="event.preventDefault()">Email</a><a id="telegram" href="https://t.me/mrdinar" onclick="event.preventDefault()">Telegram</a><a id="max" href="https://max.ru/u/public" onclick="event.preventDefault()">MAX</a><a id="section" href="#contacts" onclick="event.preventDefault()">Контакты</a><button id="copy">Копировать</button><a id="content" href="${goalPath}" ${config.contentPaths.length ? "" : "data-photo"} onclick="event.preventDefault()">Материал</a><input id="private" value="private-sentinel@example.test"><footer></footer></body></html>`;
 const fakeTag = `(() => { const prior = window.ym; const queued = prior && prior.a || []; window.__ymCalls = window.__ymCalls || []; window.ym = (...args) => window.__ymCalls.push(args); for (const args of queued) window.ym(...args); })();`;
 let passed = 0;
 let failed = 0;
@@ -38,6 +38,7 @@ async function setup(options = {}) {
     const url = new URL(request.url());
     if (url.hostname === "mc.yandex.ru") {
       requests.push(request.url());
+      if (options.blockTag) return route.abort();
       if (options.delayTag) await new Promise(resolve => setTimeout(resolve, 500));
       return route.fulfill({ status: 200, contentType: "application/javascript", body: fakeTag });
     }
@@ -82,6 +83,11 @@ async function allow(page) {
     assert.equal((await calls(page, "init")).length, 1);
     assert.equal((await calls(page, "hit")).length, 1);
     assert.equal((await calls(page, "init"))[0][0], config.counterId);
+    const options = (await calls(page, "init"))[0][2];
+    assert.equal(options.webvisor, false);
+    assert.equal(options.clickmap, false);
+    assert.equal(options.trackLinks, false);
+    assert.equal(options.disableYtm, true);
     assert.equal(await page.locator("#private").evaluate(el => el.classList.contains("ym-disable-keys") && el.classList.contains("ym-hide-content")), true);
     await page.locator("#contact").click();
     if (config.contactGoal) assert.equal((await calls(page, "reachGoal"))[0][2], config.contactGoal);
@@ -175,6 +181,97 @@ async function allow(page) {
     await page.goto(indexUrl);
     assert.equal(await page.locator("#contact").isVisible(), true);
     assert.equal(requests.length, 0);
+    await context.close();
+  });
+
+  await check("all contact channels fire once; section and copy are not contacts", async () => {
+    const { context, page } = await setup();
+    await page.goto(indexUrl); await allow(page);
+    for (const [id, channel] of [['contact','phone'],['email','email'],['telegram','telegram'],['max','max']]) {
+      const before = (await calls(page,'reachGoal')).length;
+      await page.locator(id === 'contact' ? '#contact span' : '#'+id).click();
+      const list = await calls(page,'reachGoal');
+      assert.equal(list.length,before+1);
+      assert.equal(list.at(-1)[2],config.contactGoal);
+      assert.deepEqual(list.at(-1)[3],{channel,page:'/'});
+    }
+    const before=(await calls(page,'reachGoal')).length;
+    await page.locator('#section').click();await page.locator('#copy').click();
+    assert.equal((await calls(page,'reachGoal')).length,before);
+    await context.close();
+  });
+
+  await check("duplicate controller does not duplicate init, hit or contact", async () => {
+    const {context,page,requests}=await setup();
+    await page.goto(indexUrl);await allow(page);
+    await page.addScriptTag({content:testSource});
+    await page.locator('#contact span').click();
+    assert.equal(requests.length,1);
+    assert.equal((await calls(page,'init')).length,1);
+    assert.equal((await calls(page,'hit')).length,1);
+    assert.equal((await calls(page,'reachGoal')).length,1);
+    await context.close();
+  });
+
+  await check("repeat visit retains valid choice and sends one visit",async()=>{
+    const {context,page,requests}=await setup();
+    await page.goto(indexUrl);await allow(page);await page.reload();
+    await page.waitForFunction(()=>(window.__ymCalls||[]).some(c=>c[1]==='hit'));
+    assert.equal(requests.length,2);
+    assert.equal((await calls(page,'hit')).length,1);
+    assert.equal(await page.locator('.analytics-choice').count(),0);
+    await context.close();
+  });
+
+  await check("new advertising URL and native debug work",async()=>{
+    const {context,page,requests}=await setup();
+    await page.goto(indexUrl+'?utm_source=yandex&utm_medium=cpc&utm_campaign=dc_diaries_restart_2026-10-07&utm_content=1922012450670516086&yclid=123456789012345678901234567890&match_type=rm&_ym_debug=2');
+    await allow(page);
+    const hit=(await calls(page,'hit'))[0];const url=new URL(hit[2]);
+    assert.equal(url.searchParams.get('utm_content'),'1922012450670516086');
+    assert.equal(url.searchParams.get('yclid'),'123456789012345678901234567890');
+    assert.equal(requests.length,1);
+    await context.close();
+  });
+
+  await check("unavailable storage blocks collection even with a stale allow",async()=>{
+    const {context,page,requests}=await setup();
+    await page.addInitScript(()=>{
+      localStorage.setItem('site_analytics_choice_v2',JSON.stringify({status:'allow',version:3,at:Date.now()-1000,until:Date.now()+100000}));
+      Storage.prototype.setItem=function(){throw new Error('blocked writes');};
+      Storage.prototype.removeItem=function(){throw new Error('blocked writes');};
+    });
+    await page.goto(indexUrl);
+    await page.getByRole('button',{name:'Разрешить аналитику'}).waitFor();
+    await page.getByRole('button',{name:'Разрешить аналитику'}).click();
+    assert.equal(requests.length,0);
+    assert.equal(await page.locator('.analytics-error').isVisible(),true);
+    await context.close();
+  });
+
+  await check("expired current consent requires a new choice",async()=>{
+    const {context,page,requests}=await setup();
+    await page.addInitScript(()=>localStorage.setItem('site_analytics_choice_v2',JSON.stringify({status:'allow',version:3,at:Date.now()-10000,until:Date.now()-1})));
+    await page.goto(indexUrl);await page.getByRole('button',{name:'Разрешить аналитику'}).waitFor();
+    assert.equal(requests.length,0);await context.close();
+  });
+
+  await check("SDK blocker does not prevent contact access or trigger fallback delivery",async()=>{
+    const {context,page,requests}=await setup({blockTag:true});
+    await page.goto(indexUrl);await page.getByRole('button',{name:'Разрешить аналитику'}).click();
+    await page.waitForFunction(id=>window[`disableYaCounter${id}`]===true,config.counterId);
+    await page.locator('#contact').click();
+    assert.equal(requests.length,1);
+    assert.equal((await calls(page,'reachGoal')).length,0);
+    assert.equal(await page.locator('#contact').isVisible(),true);
+    await context.close();
+  });
+
+  await check("old refusal is preserved without initializing analytics",async()=>{
+    const {context,page,requests}=await setup();
+    await page.addInitScript(()=>localStorage.setItem('site_analytics_choice_v2',JSON.stringify({status:'deny',version:2,at:Date.now()-1000,until:Date.now()+100000})));
+    await page.goto(indexUrl);
+    assert.equal(requests.length,0);assert.equal(await page.locator('.analytics-choice').count(),0);
     await context.close();
   });
 
