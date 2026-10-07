@@ -410,5 +410,5 @@
   });
 })();
 
-// First-party consent controller; production analytics stays disabled until review.
-(function(){var s=document.createElement("script");s.src="/assets/consent-metrika.js";document.head.appendChild(s);})();
+// First-party consent controller; the counter loads only after explicit consent.
+(function(){if(document.querySelector('script[data-dinar-consent]'))return;var s=document.createElement("script");s.dataset.dinarConsent="1";s.src="/assets/consent-metrika.js?v=20261006-minimal";document.head.appendChild(s);})();
