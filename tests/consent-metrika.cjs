@@ -237,7 +237,7 @@ async function allow(page) {
   await check("unavailable storage blocks collection even with a stale allow",async()=>{
     const {context,page,requests}=await setup();
     await page.addInitScript(()=>{
-      localStorage.setItem('site_analytics_choice_v2',JSON.stringify({status:'allow',version:3,at:Date.now()-1000,until:Date.now()+100000}));
+      localStorage.setItem('site_analytics_choice_v2',JSON.stringify({status:'allow',version:4,at:Date.now()-1000,until:Date.now()+100000}));
       Storage.prototype.setItem=function(){throw new Error('blocked writes');};
       Storage.prototype.removeItem=function(){throw new Error('blocked writes');};
     });
@@ -251,7 +251,7 @@ async function allow(page) {
 
   await check("expired current consent requires a new choice",async()=>{
     const {context,page,requests}=await setup();
-    await page.addInitScript(()=>localStorage.setItem('site_analytics_choice_v2',JSON.stringify({status:'allow',version:3,at:Date.now()-10000,until:Date.now()-1})));
+    await page.addInitScript(()=>localStorage.setItem('site_analytics_choice_v2',JSON.stringify({status:'allow',version:4,at:Date.now()-10000,until:Date.now()-1})));
     await page.goto(indexUrl);await page.getByRole('button',{name:'Разрешить аналитику'}).waitFor();
     assert.equal(requests.length,0);await context.close();
   });

@@ -411,4 +411,4 @@
 })();
 
 // First-party consent controller; the counter loads only after explicit consent.
-(function(){if(document.querySelector('script[data-dinar-consent]'))return;var s=document.createElement("script");s.dataset.dinarConsent="1";s.src="/assets/consent-metrika.js?v=20261006-minimal";document.head.appendChild(s);})();
+(function(){if(document.querySelector('script[data-dinar-consent]'))return;var s=document.createElement("script");s.dataset.dinarConsent="1";s.src="/assets/consent-metrika.js?v=20261015";document.head.appendChild(s);})();
