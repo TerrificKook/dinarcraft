@@ -2589,3 +2589,56 @@ body > section.contact-section{padding:clamp(42px,5vw,64px) clamp(22px,6vw,76px)
   .site-search-result{padding:12px}
   .site-search-result-description{font-size:.84rem}
 }
+
+/* Enquiry access and compact catalog, October 2026. */
+.enquiry-dock{position:fixed;right:20px;bottom:20px;z-index:90;display:flex;gap:8px;padding:8px;background:#fff;border:1px solid #ded6ca;border-radius:16px;box-shadow:0 5px 24px #231a1420}
+.enquiry-dock a,.enquiry-dock button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #765036;border-radius:10px;font:600 15px/1.3 system-ui;cursor:pointer;background:#fff;color:#51341f}
+.enquiry-dock button{background:#51341f;color:#fff}
+.enquiry-dialog{width:min(540px,calc(100% - 28px));max-height:calc(100dvh - 32px);padding:30px;border:1px solid #d5c9b9;border-radius:20px;background:#fffaf4;color:#231a14;overflow:auto}
+.enquiry-dialog::backdrop{background:#21180db3}
+.enquiry-dialog h2{font:700 28px/1.2 system-ui;margin:0 32px 14px 0}
+.enquiry-dialog p{margin:12px 0;font:16px/1.5 system-ui}
+.enquiry-context{font-weight:600!important}
+.enquiry-close{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;border-radius:50%;background:#eee6db;font:28px system-ui;cursor:pointer}
+.enquiry-links{display:grid;gap:10px;margin:22px 0 16px}
+.enquiry-links a{display:block;padding:13px 16px;border:1px solid #8a6545;border-radius:10px;background:white;font:600 16px/1.4 system-ui}
+.enquiry-links a:first-child{background:#51341f;color:#fff}
+.enquiry-copy{padding:10px 0;border:0;background:transparent;color:#51341f;font:600 15px system-ui;text-decoration:underline;cursor:pointer}
+.enquiry-status{white-space:pre-wrap;overflow-wrap:anywhere}
+.enquiry-dock :focus-visible,.enquiry-dialog :focus-visible,.catalog-quick :focus-visible{outline:3px solid #125a9a;outline-offset:3px}
+body.has-enquiry-dock{padding-bottom:86px}
+.has-enquiry-dock .analytics-choice.analytics-choice{bottom:92px}
+.catalog-modern .page-hero{min-height:0;padding:42px max(22px,calc((100vw - 1240px)/2));background:#e9dece;color:#231a14}
+.catalog-modern .page-hero h1{font-size:clamp(2rem,4vw,3.5rem);line-height:1.06;max-width:1000px}
+.catalog-modern .page-hero .eyebrow{color:#735032;margin-bottom:12px}
+.catalog-modern .page-hero p{color:#55483c;font-size:16px;line-height:1.5;margin-top:18px;max-width:1000px}
+.catalog-modern main>.catalog-quick{padding:24px max(22px,calc((100vw - 1240px)/2)) 12px}
+.catalog-quick h2{font:700 23px/1.25 system-ui;margin-bottom:14px}
+.catalog-quick-links{display:flex;flex-wrap:wrap;gap:8px}
+.catalog-quick-links a{border:1px solid #b9a38a;background:white;border-radius:9px;padding:9px 12px;font:600 14px/1.3 system-ui}
+.catalog-find{margin-top:18px;max-width:650px}
+.catalog-find[hidden],.catalog-modern [hidden]{display:none!important}
+.catalog-find label{display:block;font-weight:600;font-size:15px;margin-bottom:6px}
+.catalog-find-row{display:flex;gap:8px}
+.catalog-find input{width:100%;min-width:0;min-height:44px;border:1px solid #a48c73;border-radius:9px;padding:10px;font:16px system-ui;background:white}
+.catalog-find-reset{border:1px solid #a48c73;border-radius:9px;padding:10px;background:white;color:#51341f;font:14px system-ui;cursor:pointer}
+#catalog-find-status{font-size:14px;margin-top:6px;color:#645342}
+.catalog-modern .catalog-section[id],.catalog-modern .catalog-section[id]+.catalog-section[id]{padding-top:32px;padding-bottom:40px}
+.catalog-modern .catalog-section[id] .section-head{margin-bottom:18px}
+.catalog-modern .catalog-section[id] .section-head h2{font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.15}
+.catalog-modern .catalog-section[id] .section-head p{font-size:16px;line-height:1.5;margin-top:10px}
+.catalog-modern .catalog-card-media>a{display:block;width:100%;height:100%}
+.catalog-modern .catalog-card-media img{width:100%;height:100%;object-fit:contain;background:#eee8df}
+.catalog-product-card h3 a:hover{text-decoration:underline}
+@media(max-width:700px){
+ .enquiry-dock{left:0;right:0;bottom:0;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));border-radius:0;border-width:1px 0 0;box-shadow:0 -3px 14px #231a1412}
+ .enquiry-dock a{flex:1;padding:10px 6px}.enquiry-dock button{flex:2;padding:10px 6px}
+ body.has-enquiry-dock{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+ .has-enquiry-dock .analytics-choice.analytics-choice{bottom:calc(76px + env(safe-area-inset-bottom))}
+ .enquiry-dialog{padding:24px 18px}.enquiry-dialog h2{font-size:24px}
+ .catalog-modern .page-hero{padding:26px 20px}.catalog-modern .page-hero h1{font-size:32px}
+ .catalog-modern .page-hero p{font-size:14px;margin-top:12px}
+ .catalog-modern main>.catalog-quick{padding:20px 20px 10px}
+ .catalog-quick-links{gap:6px}.catalog-quick-links a{font-size:13px;padding:9px}
+ .catalog-modern .catalog-section[id],.catalog-modern .catalog-section[id]+.catalog-section[id]{padding:26px 20px}
+}

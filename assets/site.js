@@ -410,5 +410,84 @@
   });
 })();
 
+// Keep an enquiry on the selected page; native links remain the fallback.
+(function(){
+  if (!document.querySelector('.nav') || typeof HTMLDialogElement === 'undefined') return;
+  var dialog = document.createElement('dialog');
+  if (typeof dialog.showModal !== 'function') return;
+  dialog.className = 'enquiry-dialog';
+  dialog.setAttribute('aria-labelledby', 'enquiry-title');
+  dialog.innerHTML = '<button type="button" class="enquiry-close" aria-label="Закрыть контакты">×</button>' +
+    '<h2 id="enquiry-title">Обсудить заказ</h2><p class="enquiry-context"></p>' +
+    '<p>Укажите количество, пожелания к материалу и логотипу, город доставки и желаемый срок.</p>' +
+    '<div class="enquiry-links"><a href="https://t.me/mrdinar" target="_blank" rel="noopener">Написать в Telegram</a>' +
+    '<a href="https://max.ru/u/f9LHodD0cOKdKxpZWRTf6opqWFE4_FBbFln83YGEvx6yfmukrq7u5bdn0Wg" target="_blank" rel="noopener">Написать в MAX</a>' +
+    '<a class="enquiry-email" href="mailto:b2b@dinarcraft.ru">Написать на email</a>' +
+    '<a href="tel:+79958815095">Позвонить: +7 (995) 881-50-95</a></div>' +
+    '<button type="button" class="enquiry-copy">Скопировать товар и ссылку</button><p class="enquiry-status" role="status"></p>';
+  document.body.appendChild(dialog);
+  var dock = document.createElement('div');
+  dock.className = 'enquiry-dock';
+  dock.setAttribute('role', 'group');
+  dock.setAttribute('aria-label', 'Быстрая связь');
+  dock.innerHTML = '<a href="tel:+79958815095">Позвонить</a><button type="button">Контакты и расчёт</button>';
+  document.body.appendChild(dock);
+  document.body.classList.add('has-enquiry-dock');
+  var trigger, brief;
+  function open(source){
+    trigger = source;
+    var card = source.closest('.catalog-product-card');
+    var title = card ? card.querySelector('h3').textContent.trim() : document.querySelector('h1').textContent.trim();
+    var link = card ? card.querySelector('a[href^="/catalog/"]') : null;
+    var canonical = document.querySelector('link[rel="canonical"]');
+    var url = link ? 'https://dinarcraft.ru' + link.getAttribute('href') : (canonical ? canonical.href : location.href.split('#')[0]);
+    var sku = card && card.querySelector('.catalog-product-meta span');
+    if (sku) title += ' · ' + sku.textContent.trim();
+    brief = title + '\n' + url;
+    dialog.querySelector('.enquiry-context').textContent = title;
+    dialog.querySelector('.enquiry-email').href = 'mailto:b2b@dinarcraft.ru?subject=' + encodeURIComponent('Расчёт: ' + title) + '&body=' + encodeURIComponent(brief + '\n\nКоличество:\nМатериал и цвет:\nЛоготип:\nГород доставки:\nЖелаемый срок:');
+    dialog.querySelector('.enquiry-status').textContent = '';
+    dialog.showModal();
+    dialog.querySelector('.enquiry-close').focus();
+  }
+  dock.querySelector('button').addEventListener('click', function(){ open(this); });
+  document.addEventListener('click', function(event){
+    var a = event.target.closest('a[href]');
+    if (!a || event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    if (!/^\/?#contacts$/.test(a.getAttribute('href')) || !/расч[её]т|обсудить/i.test(a.textContent)) return;
+    event.preventDefault(); open(a);
+  });
+  dialog.querySelector('.enquiry-close').addEventListener('click', function(){dialog.close();});
+  dialog.addEventListener('click', function(e){if(e.target === dialog){var r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
+  dialog.addEventListener('close', function(){if(trigger)trigger.focus();});
+  dialog.querySelector('.enquiry-copy').addEventListener('click', function(){
+    var status=dialog.querySelector('.enquiry-status');
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {status.textContent=brief;return;}
+    navigator.clipboard.writeText(brief).then(function(){status.textContent='Товар и ссылка скопированы. Вставьте их в сообщение.';},function(){status.textContent=brief;});
+  });
+})();
+
+// Progressive enhancement: all catalog products and links remain in the HTML.
+(function(){
+  var field=document.querySelector('#catalog-find');
+  if(!field)return;
+  var controls=document.querySelector('.catalog-find'); controls.hidden=false;
+  var cards=Array.prototype.slice.call(document.querySelectorAll('.catalog-product-card'));
+  var sections=Array.prototype.slice.call(document.querySelectorAll('.catalog-section[id]'));
+  var status=document.querySelector('#catalog-find-status');
+  function normalize(s){return s.toLowerCase().replace(/ё/g,'е').replace(/[^а-яa-z0-9]+/gi,' ').trim();}
+  function filter(){
+    var words=normalize(field.value).split(/\s+/).filter(Boolean),count=0;
+    cards.forEach(function(card){var text=normalize(card.textContent);card.hidden=!words.every(function(w){return text.indexOf(w)!==-1;});if(!card.hidden)count++;});
+    sections.forEach(function(section){section.hidden=!section.querySelector('.catalog-product-card:not([hidden])');
+      section.querySelectorAll('.catalog-subheading').forEach(function(h){var grid=h.nextElementSibling;h.hidden=!!grid && !grid.querySelector('.catalog-product-card:not([hidden])');});});
+    status.textContent=count ? 'Показано моделей: '+count+' из '+cards.length : 'Ничего не найдено. Измените запрос или сбросьте поиск.';
+  }
+  field.addEventListener('input',filter);
+  document.querySelector('.catalog-find-reset').addEventListener('click',function(){field.value='';filter();field.focus();});
+  document.querySelectorAll('.catalog-quick-links a[href^="#"]').forEach(function(a){a.addEventListener('click',function(){field.value='';filter();});});
+  filter();
+})();
+
 // First-party consent controller; the counter loads only after explicit consent.
 (function(){if(document.querySelector('script[data-dinar-consent]'))return;var s=document.createElement("script");s.dataset.dinarConsent="1";s.src="/assets/consent-metrika.js?v=20261006-minimal";document.head.appendChild(s);})();
