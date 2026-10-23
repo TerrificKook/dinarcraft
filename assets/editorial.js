@@ -1,5 +1,36 @@
 (function () {
   'use strict';
+  var directory = document.querySelector('.articles-directory');
+  if (directory) {
+    var tools = directory.querySelector('.article-directory-tools');
+    var search = directory.querySelector('#article-search');
+    var groups = Array.from(directory.querySelectorAll('.article-index-group'));
+    var filters = Array.from(directory.querySelectorAll('[data-topic]'));
+    var topic = 'all';
+    var normalize = function (value) { return value.toLowerCase().replace(/ё/g, 'е').trim(); };
+    function filterArticles() {
+      var terms = normalize(search.value).split(/\s+/).filter(Boolean);
+      var count = 0;
+      groups.forEach(function (group) {
+        var visible = 0;
+        group.querySelectorAll('.article-card').forEach(function (card) {
+          var text = normalize(card.textContent);
+          card.hidden = (topic !== 'all' && topic !== group.id) || !terms.every(function (term) { return text.includes(term); });
+          if (!card.hidden) visible++;
+        });
+        group.hidden = !visible;
+        count += visible;
+      });
+      filters.forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.topic === topic)); });
+      directory.querySelector('#article-search-status').textContent = count ? 'Найдено статей: ' + count : 'Ничего не найдено. Попробуйте другое слово или сбросьте фильтры.';
+    }
+    tools.hidden = false;
+    directory.classList.add('directory-ready');
+    search.addEventListener('input', filterArticles);
+    filters.forEach(function (button) { button.addEventListener('click', function () { topic = button.dataset.topic; filterArticles(); }); });
+    directory.querySelector('#article-search-reset').addEventListener('click', function () { topic = 'all'; search.value = ''; filterArticles(); search.focus(); });
+    filterArticles();
+  }
   var body = document.querySelector('.article-page .article-body');
   if (!body) return;
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');

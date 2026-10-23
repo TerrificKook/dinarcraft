@@ -2642,3 +2642,10 @@ body.has-enquiry-dock{padding-bottom:86px}
  .catalog-quick-links{gap:6px}.catalog-quick-links a{font-size:13px;padding:9px}
  .catalog-modern .catalog-section[id],.catalog-modern .catalog-section[id]+.catalog-section[id]{padding:26px 20px}
 }
+
+/* Consistent catalog cards, with restrained pointer feedback. */
+.catalog-modern .catalog-product-card{border-radius:18px;overflow:hidden;transition:transform .2s,box-shadow .2s;border:1px solid #e1d9ce}
+.catalog-modern .catalog-card-media{overflow:hidden;border-radius:14px 14px 0 0}
+.catalog-modern .catalog-product-card .catalog-product-body{display:flex;flex-direction:column;flex:1}
+@media(hover:hover){.catalog-modern .catalog-product-card:hover{transform:translateY(-3px);box-shadow:0 12px 24px #38251012}}
+@media(prefers-reduced-motion:reduce){.catalog-modern .catalog-product-card{transition:none;transform:none}}
