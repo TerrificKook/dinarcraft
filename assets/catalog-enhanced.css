@@ -1,0 +1,12 @@
+.catalog-enhanced{max-width:1280px;margin:40px auto;padding:0 24px}
+.catalog-enhanced .preview-controls{display:grid;grid-template-columns:2fr 1.3fr 1.2fr auto;gap:14px;align-items:end}.catalog-enhanced .preview-controls label{display:block;font-size:14px;font-weight:bold;margin-bottom:8px}.catalog-enhanced .preview-controls input,.catalog-enhanced .preview-controls select,.catalog-enhanced .preview-controls button{box-sizing:border-box;width:100%;min-height:48px;border:1px solid #bfb4a5;border-radius:6px;background:white;padding:10px;font-size:16px;color:#29241f}.catalog-enhanced .preview-controls button{cursor:pointer;background:#403529;color:white}.catalog-enhanced .preview-group{margin:34px 0}.catalog-enhanced .preview-group h2{font-size:26px;margin-bottom:18px}.catalog-enhanced .sku-list{display:grid;gap:8px}.catalog-enhanced .sku-row{display:flex;align-items:center;gap:18px;background:white;padding:10px 16px;border:1px solid #e4ded5;border-radius:6px}.catalog-enhanced .sku-row img{width:60px;height:65px;object-fit:cover;border-radius:4px}.catalog-enhanced .sku-row strong{min-width:85px}@media(max-width:750px){.catalog-enhanced .preview-controls{grid-template-columns:1fr 1fr}.catalog-enhanced .preview-controls>div:first-child{grid-column:1/-1}.catalog-enhanced .sku-row{gap:10px}.catalog-enhanced .sku-row strong{min-width:48px}}
+.catalog-enhanced .preview-group{padding:0}
+.catalog-enhanced .catalog-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.catalog-enhanced .catalog-product-card{height:auto;background:#fff}
+.catalog-enhanced .catalog-card-media{aspect-ratio:1/1}
+.catalog-enhanced .catalog-product-body{gap:7px;padding:12px}
+.catalog-enhanced .catalog-product-meta span:not(:first-child),.catalog-enhanced .catalog-product-body>p,.catalog-enhanced .catalog-product-terms{display:none}
+.catalog-enhanced .catalog-product-card h3{font-size:1rem;line-height:1.25}
+.catalog-enhanced .catalog-product-actions{gap:6px}
+.catalog-enhanced .catalog-product-actions .card-link{font-size:.82rem;padding:0 9px}
+@media(max-width:820px){.catalog-enhanced .catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.catalog-enhanced .catalog-product-body{padding:10px}.catalog-enhanced .catalog-product-actions .card-link{width:100%;justify-content:center}.catalog-enhanced .preview-group h2{font-size:22px}}
