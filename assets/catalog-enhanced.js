@@ -42,7 +42,24 @@
       visible.forEach(item => {const row = document.createElement('a'); row.className='sku-row'; row.href=item.link; const img=item.card.querySelector('img').cloneNode(); const sku=document.createElement('strong'); sku.textContent=item.sku; const name=document.createElement('span'); name.textContent=item.card.querySelector('h3').textContent; row.append(img,sku,name); list.append(row);});
       results.append(list);
     } else {
-      groups.forEach(([name]) => {const items=visible.filter(item => item.group===name); if(!items.length)return; const section=document.createElement('section'); section.className='preview-group'; const heading=document.createElement('h2'); heading.textContent=name; const grid=document.createElement('div'); grid.className='catalog-grid'; items.forEach(item => grid.append(item.card.cloneNode(true))); section.append(heading,grid); results.append(section);});
+      groups.forEach(([name]) => {const items=visible.filter(item => item.group===name); if(!items.length)return; const section=document.createElement('section'); section.className='preview-group'; const heading=document.createElement('h2'); heading.textContent=name; const grid=document.createElement('div'); grid.className='catalog-grid'; items.forEach(item => {
+        const card = item.card.cloneNode(true);
+        const heading = card.querySelector('h3');
+        const image = card.querySelector('.catalog-card-media img');
+        if (!heading.querySelector('a')) {
+          const link = document.createElement('a');
+          link.href = item.link;
+          link.textContent = heading.textContent;
+          heading.replaceChildren(link);
+        }
+        if (image && !image.closest('a')) {
+          const link = document.createElement('a');
+          link.href = item.link;
+          image.replaceWith(link);
+          link.append(image);
+        }
+        grid.append(card);
+      }); section.append(heading,grid); results.append(section);});
     }
   }
   search.addEventListener('input',render); category.addEventListener('change',render); order.addEventListener('change',() => {history.replaceState(null,'',order.value==='sku'?'?order=sku':location.pathname); render();});
