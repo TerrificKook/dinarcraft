@@ -7,12 +7,14 @@ from urllib.parse import unquote, urlsplit
 import xml.etree.ElementTree as ET
 
 from regru_remote import safe_name
+from check_search import check as check_search
 
 ROOT = Path(__file__).resolve().parents[1]
 config = json.loads((ROOT / 'tools/public-files.json').read_text('utf-8'))
 out = ROOT / 'dist-regru'
 files = {f.relative_to(out).as_posix() for f in out.rglob('*') if f.is_file()}
 errors = []
+errors.extend(check_search(out)['errors'])
 refs = []
 
 
