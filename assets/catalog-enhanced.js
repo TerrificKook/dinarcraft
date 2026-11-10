@@ -1,5 +1,4 @@
 (function () {
-  if (location.hash) return;
   const quick = document.querySelector('.catalog-quick');
   const originalSections = Array.from(document.querySelectorAll('.catalog-section[id]'));
   const sourceCards = Array.from(document.querySelectorAll('.catalog-product-card'));
@@ -36,36 +35,54 @@
     const visible = cards.filter(item => (!category.value || item.group === category.value) && words.every(word => item.search.includes(word)));
     results.replaceChildren();
     status.textContent = visible.length ? 'Показано моделей: ' + visible.length + ' из ' + cards.length : 'Ничего не найдено. Попробуйте другое название или сбросьте фильтр.';
-    if (order.value === 'sku') {
-      const list = document.createElement('div'); list.className = 'sku-list';
-      visible.sort((a,b) => /^\d+$/.test(a.sku) && /^\d+$/.test(b.sku) ? Number(a.sku)-Number(b.sku) : /^\d+$/.test(a.sku) ? -1 : /^\d+$/.test(b.sku) ? 1 : a.sku.localeCompare(b.sku));
-      visible.forEach(item => {const row = document.createElement('a'); row.className='sku-row'; row.href=item.link; const img=item.card.querySelector('img').cloneNode(); const sku=document.createElement('strong'); sku.textContent=item.sku; const name=document.createElement('span'); name.textContent=item.card.querySelector('h3').textContent; row.append(img,sku,name); list.append(row);});
-      results.append(list);
-    } else {
-      groups.forEach(([name]) => {const items=visible.filter(item => item.group===name); if(!items.length)return; const section=document.createElement('section'); section.className='preview-group'; const heading=document.createElement('h2'); heading.textContent=name; const grid=document.createElement('div'); grid.className='catalog-grid'; items.forEach(item => {
-        const card = item.card.cloneNode(true);
-        const heading = card.querySelector('h3');
-        const image = card.querySelector('.catalog-card-media img');
-        if (!heading.querySelector('a')) {
-          const link = document.createElement('a');
-          link.href = item.link;
-          link.textContent = heading.textContent;
-          heading.replaceChildren(link);
-        }
-        if (image && !image.closest('a')) {
-          const link = document.createElement('a');
-          link.href = item.link;
-          image.replaceWith(link);
-          link.append(image);
-        }
-        grid.append(card);
-      }); section.append(heading,grid); results.append(section);});
-    }
+    const names = order.value === 'sku' ? ['Все изделия по артикулам'] : groups.map(item => item[0]);
+    if (order.value === 'sku') visible.sort((a,b) => a.sku.localeCompare(b.sku, 'ru', {numeric:true}));
+    names.forEach(name => {
+      const items = order.value === 'sku' ? visible : visible.filter(item => item.group === name);
+      if (!items.length) return;
+      const section = document.createElement('section');
+      section.className = 'preview-group';
+      const heading = document.createElement('h2');
+      heading.textContent = name;
+      const grid = document.createElement('div');
+      grid.className = 'mini-grid';
+      items.forEach(item => {
+        const link = document.createElement('a');
+        link.className = 'mini-product';
+        link.href = item.link;
+        const image = item.card.querySelector('img').cloneNode();
+        const photo = document.createElement('div');
+        photo.className = 'mini-photo';
+        photo.append(image);
+        const text = document.createElement('div');
+        text.className = 'mini-text';
+        const sku = document.createElement('span');
+        sku.className = 'mini-sku';
+        sku.textContent = item.sku;
+        const title = document.createElement('span');
+        title.className = 'mini-name';
+        title.textContent = item.card.querySelector('h3').textContent;
+        text.append(sku,title);
+        link.append(photo,text);
+        grid.append(link);
+      });
+      section.append(heading,grid);
+      results.append(section);
+    });
   }
   search.addEventListener('input',render); category.addEventListener('change',render); order.addEventListener('change',() => {history.replaceState(null,'',order.value==='sku'?'?order=sku':location.pathname); render();});
   document.querySelector('#reset').addEventListener('click',()=>{search.value='';category.value='';order.value='category';history.replaceState(null,'',location.pathname);render();});
   quick.hidden = true;
   originalSections.forEach(section => { section.hidden = true; });
-  window.addEventListener('hashchange', () => { if (location.hash) location.reload(); });
-  render();
+  function openHash() {
+    const targets = {'#stropa':0,'#perenoska':0,'#styazhki':0,'#ezhednevniki':2,'#ochechniki':3,'#kapholdery':4,'#podstavki':5,'#propuska':6,'#malye-aksessuary':7,'#furnitura':9};
+    if (location.hash) {
+      search.value = '';
+      category.value = targets[location.hash] === undefined ? '' : groups[targets[location.hash]][0];
+    }
+    render();
+  }
+  window.addEventListener('hashchange', openHash);
+  document.body.classList.add('catalog-thumbnails');
+  openHash();
 })();
