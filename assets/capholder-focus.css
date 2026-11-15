@@ -87,3 +87,16 @@
  .kap-story-bridge{padding:24px 20px}.kap-story .article-body .kap-story-bridge h3{font-size:1.5rem}
 }
 @media(prefers-reduced-motion:reduce){.kapholder-landing .kap-calc-button,.kap-story-route a,.kap-story .article-body .kap-story-bridge a{transition:none}}
+
+/* Approved model comparison, 2026-11-15. Static and responsive. */
+.kap-story .kap-compare{background:#f6f1e8;color:#38291f;padding:24px;border-radius:12px;margin:32px 0}
+.kap-story .kap-compare-models{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin:24px 0}
+.kap-story .kap-compare-models article{border-top:2px solid #ac8c5c;padding-top:16px;min-width:0}
+.kap-story .kap-compare-models img{width:100%;aspect-ratio:3/4;object-fit:contain;background:#fff;border-radius:8px}
+.kap-story .kap-compare-models h3{font-size:23px;line-height:1.25;margin:8px 0}
+.kap-story .kap-compare-models p{font-size:16px;line-height:1.55;margin:8px 0}
+.kap-story .kap-compare-models small{letter-spacing:.12em;color:#806342}
+.kap-story .kap-compare-step{display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;border-top:1px solid #cbbca5;padding:16px 0;font-size:16px;line-height:1.55}
+.kap-story .kap-compare-step>b{color:#8a6839;font-size:24px}
+.kap-story .kap-compare-note{font-size:14px;line-height:1.6;color:#705d4b}
+@media(max-width:600px){.kap-story .kap-compare{padding:18px}.kap-story .kap-compare-models{grid-template-columns:1fr;gap:20px}.kap-story .kap-compare-models article{display:grid;grid-template-columns:90px minmax(0,1fr);gap:14px}.kap-story .kap-compare-models h3{font-size:20px}.kap-story .kap-compare-models p{font-size:15px}}
